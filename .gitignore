@@ -2,7 +2,7 @@
 .storage
 .cloud
 .google.token
-.vs_code
+.vscode
 esphome
 node-red
 themes
