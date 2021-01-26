@@ -1,0 +1,133 @@
+title: Home
+panel: true
+badges: []
+cards:
+  - type: 'custom:layout-card'
+    layout: vertical
+    max_columns: 3
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: glance
+            style: |
+              ha-card {
+                color: white;
+                font-size: 12px;
+                #border-radius: 50px;
+                margin: 0px 50px 0px 0px !important;
+              }
+              .card-header {
+                font-size: 20px;
+                text-align: center;
+                line-height: 70%;
+              }
+            entities:
+              - entity: sensor.bme280_temperature
+              - entity: sensor.bme280_pressure
+              - entity: sensor.bme280_humidity
+            state_color: true
+            title: Office
+          - type: glance
+            style: |
+              ha-card {
+                color: white;
+                font-size: 12px;
+                #border-radius: 50px;
+                margin: 0px 50px 0px 0px !important;
+              }
+              .card-header {
+                font-size: 20px;
+                text-align: center;
+                line-height: 70%;
+              }          
+            entities:
+              - entity: sensor.bme280_temperature_2
+              - entity: sensor.bme280_pressure_2
+              - entity: sensor.bme280_humidity_2
+            title: Tobi's bedroom
+          - type: vertical-stack
+            cards:
+              - type: 'custom:mini-graph-card'
+                style: |
+                  ha-card {
+                    color: white;
+                    font-size: 12px;
+                    #border-radius: 50px;
+                    margin: 0px 50px 0px 0px !important;
+                  }
+                  .card-header {
+                    font-size: 20px;
+                    text-align: center;
+                    line-height: 70%;
+                  }                    
+                name: Temperature
+                font_size: 75
+                hours_to_show: 48
+                points_per_hour: 4
+                show:
+                  extrema: true
+                entities:
+                  - entity: sensor.bme280_temperature
+                    name: Office
+                  - entity: sensor.bme280_temperature_2
+                    name: Tobi's Room
+                  - color: gray
+                    entity: input_number.nighttime
+                    name: Night
+                    show_line: false
+                    show_points: false
+                    show_legend: false
+                    y_axis: secondary
+      - break
+      - type: thermostat
+        entity: climate.ac_uty_a0cc2beda5f7
+        name: Heat Pump
+      - break
+      - type: 'custom:mini-graph-card'
+        style: |
+          ha-card {
+            color: white;
+            font-size: 12px;
+            #border-radius: 50px;
+            margin: 0px 50px 0px 0px !important;
+          }
+          .card-header {
+            font-size: 20px;
+            text-align: center;
+            line-height: 70%;
+          }                    
+        name: Refrigerator
+        font_size: 75
+        hours_to_show: 6
+        points_per_hour: 6
+        show:
+          extrema: true
+        entities:
+          - entity: sensor.sonoff_1000cd8a56_power
+            name: Power
+          - entity: sensor.sonoff_1000cd8a56_current
+            name: Current
+          - color: gray
+            entity: input_number.nighttime
+            name: Night
+            show_line: false
+            show_points: false
+            show_legend: false
+            y_axis: secondary
+      - type: glance
+        style: |
+          ha-card {
+            color: white;
+            font-size: 12px;
+            margin: 0px 50px 0px 0px !important;    
+          }      
+          .card-header {
+            font-size: 20px;
+            text-align: center;
+            line-height: 70%;
+          }          
+        entities:
+          - entity: sensor.sonoff_1000cd8a56_current
+          - entity: sensor.sonoff_1000cd8a56_power
+          - entity: sensor.sonoff_1000cd8a56_voltage
+        title: Refrigerator

@@ -1,0 +1,11 @@
+title: Bellevue House
+views:
+  - !include 'ui-lovelace_main.yaml'
+  - !include 'ui-lovelace_stats.yaml'
+  - !include 'ui-lovelace_hardware.yaml'
+  - !include 'ui-lovelace_schedule.yaml'
+  - !include 'ui-lovelace_weather.yaml'
+  - !include 'ui-lovelace_calendar.yaml'
+  - !include 'ui-lovelace_internet.yaml'  # 
+  - !include 'ui-lovelace_lab.yaml'       # Hidden view with experiments, wip components and broken stuff
+  - !include 'ui-lovelace_redo.yaml'

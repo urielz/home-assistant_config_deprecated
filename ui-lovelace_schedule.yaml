@@ -1,0 +1,9 @@
+title: Schedule
+badges: []
+icon: 'mdi:calendar-clock'
+cards:
+  - type: 'custom:scheduler-card'
+    include:
+      - switch.sonoff_1000c6080b
+    title: ''
+    discover_existing: false

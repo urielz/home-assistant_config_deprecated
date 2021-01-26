@@ -1,0 +1,30 @@
+title: Calendar
+panel: true
+icon: 'mdi:calendar'
+badges: []
+cards:
+  - type: 'custom:atomic-calendar-revive'
+    name: Calendar
+    entities:
+      - entity: calendar.uriel_zaja_gmail_com
+        icon: 'mdi:calendar'
+        color: yellow
+      - entity: calendar.birthdays
+        icon: 'mdi:cake-variant'
+        color: white
+    enableModeChange: true
+    firstDayOfWeek: 1
+    maxDaysToShow: 7
+    dimFinishedEvents: false
+    showEventIcon: true
+    showCurrentEventLine: false
+    showMonth: false
+    showDescription: false
+    showWeekDay: true
+    disableEventLink: false
+    showFullDayProgress: false
+    showProgressBar: false
+    calShowDescription: false
+    showLastCalendarWeek: false
+    disableCalEventLink: false
+    showRelativeTime: false

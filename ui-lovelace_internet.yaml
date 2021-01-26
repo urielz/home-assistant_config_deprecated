@@ -1,0 +1,37 @@
+title: 'Internet'
+path: internet
+icon: 'mdi:speedometer'
+badges: []
+cards:
+  - type: entity
+    entity: sensor.speedtest_last_updated
+  - type: entity-button
+    entity: switch.update_speedtest
+    icon_height: 50px
+    show_state: false
+    tap_action:
+      action: call-service
+      service: speedtestdotnet.speedtest
+    name: Update
+  - type: entities
+    entities:
+      - entity: sensor.external_ip
+        icon: 'mdi:ip-network'
+        secondary_info: last-updated
+  - type: horizontal-stack
+    cards:
+      - type: sensor
+        entity: sensor.speedtest_download
+        name: Download
+        detail: 2
+        icon: 'mdi:arrow-down-bold'
+        graph: line
+      - type: sensor
+        entity: sensor.speedtest_upload
+        graph: line
+        name: Upload
+        icon: 'mdi:arrow-up-bold'
+      - type: sensor
+        entity: sensor.speedtest_ping
+        graph: line
+        name: Ping

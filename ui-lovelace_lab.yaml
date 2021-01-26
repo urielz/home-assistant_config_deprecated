@@ -1,0 +1,34 @@
+title: lab
+panel: false
+icon: 'mdi:wrench'
+theme: ''
+visible:
+  - user: 681a63f72a0c475981b9e34d282dccdf
+  - user: f5989ea0e8114fc6ab03dc592fec93c9
+badges: []
+cards:
+  - type: 'custom:mini-graph-card'
+    name: Router Traffic
+    icon: 'mdi:server'
+    entities:
+      - entity: sensor.arris_dg2470a_router_kib_s_received
+        name: Received
+      - entity: sensor.arris_dg2470a_router_kib_s_sent
+        name: Sent
+      - type: entities
+    entities:
+      - sensor.tets
+  - type: picture-entity
+    entity: camera.halifax_tides_curve
+  - type: sensor
+    entity: sensor.arris_rtotal_bandwidth
+    graph: line
+  - type: entities
+    entities:
+      - entity: sensor.fridge_daily
+  - type: entities
+    entities:
+      - input_number.energy_cost
+  - type: entities
+    entities:
+      - sensor.fridge_cost_today

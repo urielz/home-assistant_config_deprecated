@@ -1,0 +1,90 @@
+# Home Assistant Configuration - Uriel Zajaczkovski 
+# 2020-Dec-03: Initial setup
+# 2021-Jan-26: Switch to YAML mode (lovelace GUI is a mess and lacks functionality)
+
+default_config:
+
+# lovelace UI YAML mode (raw editor is disable, now code is in ui-lovelace.yaml)
+lovelace:
+  mode: yaml
+  resources:
+    - url: /local/community/mini-graph-card/mini-graph-card-bundle.js?v=0.10.0
+      type: module
+    - url: /local/community/atomic-calendar-revive/atomic-calendar-revive.js
+      type: module
+  # Check Button Card (HACS) - https://github.com/custom-cards/check-button-card
+    - {type: module, url: '/local/community/check-button-card/check-button-card.js'}
+  # Scheduler Component (HACS) - https://github.com/nielsfaber/scheduler-component
+    - {type: module, url: '/local/community/scheduler-card/scheduler-card.js'}
+  # layout-card (HACS) - https://github.com/thomasloven/lovelace-layout-card
+    - {type: module, url: '/local/community/lovelace-layout-card/layout-card.js'}
+  # template-entity-row (HACS) - https://github.com/thomasloven/lovelace-template-entity-row
+    - {type: module, url: '/local/community/lovelace-template-entity-row/template-entity-row.js'}
+  # card-mod (HACS) - https://github.com/thomasloven/lovelace-card-mod
+    - {type: module, url: '/local/community/lovelace-card-mod/card-mod.js'}
+
+frontend:
+  themes: !include_dir_merge_named themes
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+sensor: !include sensors.yaml
+utility_meter: !include utility_meters.yaml
+switch: !include switches.yaml
+
+input_number:
+  wan_traffic_delta_in:
+    min: 0
+    max: 4294967295
+  wan_traffic_delta_out:
+    min: 0
+    max: 4294967295
+
+speedtestdotnet:
+  scan_interval:
+    days: 0
+    hours: 12
+    minutes: 0
+    seconds: 0
+    milliseconds: 0
+
+# Google Calendar integration - deployed 2020-Dec-15
+# source: 
+google:
+  client_id: !secret google_client_id
+  client_secret: !secret google_client_secret
+
+weather:
+  - platform: environment_canada 
+
+camera:
+  - platform: environment_canada
+  - platform: generic
+    name: Halifax_tides_curve
+    still_image_url: https://127.0.0.1:8123/local/halifax_tides.png
+    verify_ssl: false
+
+sonoff:
+  username: !secret sonoff_powr2_username
+  password: !secret sonoff_powr2_password
+  force_update: [temperature, power]
+  scan_interval: '00:01:00'  # (optional) default 5 minutes
+  sensors: [temperature, humidity, power, current, voltage]
+
+climate:
+   - platform: fujitsu_general_heatpump
+     username: !secret climate_username
+     password: !secret climate_password 
+     tokenpath: 'token.txt'
+
+influxdb:
+  host: a0d7b954-influxdb
+  port: 8086
+  database: homeassistant
+  username: !secret influxdb_username
+  password: !secret influxdb_password
+  max_retries: 3
+  default_measurement: state
+

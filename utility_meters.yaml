@@ -1,0 +1,16 @@
+fridge_daily:
+  source: sensor.fridge_energy_spent
+  cycle: daily
+
+#daily_internet_usage_in:
+#  source: sensor.internet_usage_in
+#  cycle: daily
+#monthly_internet_usage_in:
+#  source: sensor.internet_usage_in
+#  cycle: monthly
+#daily_internet_usage_out:
+#  source: sensor.internet_usage_out
+#  cycle: daily
+#monthly_internet_usage_out:
+#  source: sensor.internet_usage_out
+#  cycle: monthly

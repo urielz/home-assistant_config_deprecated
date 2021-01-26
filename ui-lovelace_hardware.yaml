@@ -1,0 +1,68 @@
+title: Hardware Status
+path: hardware
+icon: 'mdi:chip'
+badges:
+  - entity: binary_sensor.rpi_power_status
+  - entity: sensor.hl_l2340d_status
+  - entity: binary_sensor.pixel_2_is_charging
+cards:
+  - type: glance
+    entities:
+      - entity: sensor.glances_cpu_thermal_1_temperature
+      - entity: sensor.glances_cpu_load
+      - entity: sensor.glances_cpu_used
+      - entity: sensor.glances_ram_used
+      - entity: sensor.glances_ram_used_percent
+      - entity: sensor.glances_free
+    columns: 3
+    title: Raspberry Pi 4
+  - type: glance
+    entities:
+      - entity: sensor.kuroshio_cpu_load_total
+      - entity: sensor.kuroshio_temperature
+      - entity: sensor.kuroshio_memory_usage_real
+      - entity: binary_sensor.kuroshio_update_available
+    title: Kuroshio Server Status
+    state_color: true
+    columns: 2
+  - type: glance
+    entities:
+      - entity: sensor.kuroshio_volume_1_used_space
+      - entity: sensor.kuroshio_volume_1_volume_used
+      - entity: sensor.kuroshio_drive_1_status
+      - entity: sensor.kuroshio_drive_1_temperature
+      - entity: sensor.kuroshio_drive_2_status
+      - entity: sensor.kuroshio_drive_2_temperature
+    title: Kuroshio RAID1 Storage
+    columns: 2
+  - type: glance
+    entities:
+      - entity: sensor.glances_containers_active
+      - entity: sensor.glances_containers_cpu_used
+      - entity: sensor.glances_ram_used_percent
+    title: PI4 Docker
+  - type: glance
+    entities:
+      - entity: sensor.hl_l2340d_uptime
+      - entity: sensor.hl_l2340d_page_counter
+      - entity: sensor.hl_l2340d_black_toner_remaining
+      - entity: sensor.hl_l2340d_drum_remaining_life
+    state_color: true
+    title: Office Printer
+    show_state: true
+    show_icon: true
+    show_name: true
+    columns: 2
+  - type: entities
+    entities:
+      - entity: binary_sensor.pixel_2_is_charging
+      - entity: sensor.pixel_2_battery_level
+      - entity: sensor.pixel_2_battery_health
+      - entity: device_tracker.pixel_2
+    state_color: true
+    footer:
+      type: graph
+      entity: sensor.pixel_2_battery_level
+      hours_to_show: 24
+      detail: 2
+    title: Pixel 2

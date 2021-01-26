@@ -1,0 +1,242 @@
+title: Main
+panel: false
+icon: 'mdi:home'
+badges: []
+cards:
+    - type: media-control
+      entity: media_player.speaker
+    - type: vertical-stack
+      cards:
+        - type: glance
+          style: |
+            ha-card {
+              color: white;
+              font-size: 12px;
+              #border-radius: 50px;
+              margin: 0px 50px 0px 0px !important;
+            }
+            .card-header {
+              font-size: 20px;
+              text-align: center;
+              line-height: 70%;
+            }
+          entities:
+            - entity: sensor.bme280_temperature
+            - entity: sensor.bme280_pressure
+            - entity: sensor.bme280_humidity
+          state_color: true
+          title: Office
+        - type: glance
+          style: |
+            ha-card {
+              color: white;
+              font-size: 12px;
+              #border-radius: 50px;
+              margin: 0px 50px 0px 0px !important;
+            }
+            .card-header {
+              font-size: 20px;
+              text-align: center;
+              line-height: 70%;
+            }          
+          entities:
+            - entity: sensor.bme280_temperature_2
+            - entity: sensor.bme280_pressure_2
+            - entity: sensor.bme280_humidity_2
+          title: Tobi's bedroom
+        - type: vertical-stack
+          cards:
+            - type: 'custom:mini-graph-card'
+              style: |
+                ha-card {
+                  color: white;
+                  font-size: 12px;
+                  #border-radius: 50px;
+                  margin: 0px 50px 0px 0px !important;
+                }
+                .card-header {
+                  font-size: 20px;
+                  text-align: center;
+                  line-height: 70%;
+                }                    
+              name: Temperature
+              font_size: 75
+              hours_to_show: 48
+              points_per_hour: 4
+              show:
+                extrema: true
+              entities:
+                - entity: sensor.bme280_temperature
+                  name: Office
+                - entity: sensor.bme280_temperature_2
+                  name: Tobi's Room
+                - color: gray
+                  entity: input_number.nighttime
+                  name: Night
+                  show_line: false
+                  show_points: false
+                  show_legend: false
+                  y_axis: secondary
+    - type: thermostat
+      entity: climate.ac_uty_a0cc2beda5f7
+      name: Heat Pump
+    - type: 'custom:mini-graph-card'
+      style: |
+        ha-card {
+          color: white;
+          font-size: 12px;
+          #border-radius: 50px;
+          margin: 0px 50px 0px 0px !important;
+        }
+        .card-header {
+          font-size: 20px;
+          text-align: center;
+          line-height: 70%;
+        }                    
+      name: Refrigerator
+      font_size: 75
+      hours_to_show: 6
+      points_per_hour: 6
+      show:
+        extrema: true
+      entities:
+        - entity: sensor.sonoff_1000cd8a56_power
+          name: Power
+        - entity: sensor.sonoff_1000cd8a56_current
+          name: Current
+        - color: gray
+          entity: input_number.nighttime
+          name: Night
+          show_line: false
+          show_points: false
+          show_legend: false
+          y_axis: secondary
+    - type: glance
+      style: |
+        ha-card {
+          color: white;
+          font-size: 12px;
+          margin: 0px 50px 0px 0px !important;    
+        }      
+        .card-header {
+          font-size: 20px;
+          text-align: center;
+          line-height: 70%;
+        }          
+      entities:
+        - entity: sensor.sonoff_1000cd8a56_current
+        - entity: sensor.sonoff_1000cd8a56_power
+        - entity: sensor.sonoff_1000cd8a56_voltage
+      title: Refrigerator
+    - type: glance
+      style: |
+        ha-card {
+          color: white;
+          font-size: 12px;
+          #border-radius: 50px;
+          margin: 0px 50px 0px -50px !important;
+        }
+        .card-header {
+          font-size: 20px;
+          text-align: center;
+          line-height: 70%;
+        }                    
+      name: null
+      entities:
+        - entity: vacuum.roomba
+        - entity: sensor.roomba_battery_level
+        - entity: binary_sensor.roomba_bin_full
+      state_color: true
+      columns: 3
+    - type: entities
+      style: |
+        ha-card {
+          color: white;
+          font-size: 12px;
+        }      
+        .card-header {
+          font-size: 20px;
+          text-align: center;
+        }        
+      show_header_toggle: false
+      title: Garbage Pickup
+      entities:
+        - type: 'custom:template-entity-row'
+          entity: sensor.recollect_waste
+          name: >
+            {%- for item in
+            state_attr('sensor.recollect_waste','pickup_types') -%}
+
+            {%- if loop.first == false %}, {% endif -%}
+
+            {{ item | title }}
+
+            {%- endfor -%}
+          icon: >
+            {%- set items =
+            state_attr('sensor.recollect_waste','pickup_types') -%}
+
+            {%- if 'greybox' in items -%}mdi:newspaper
+
+            {%- elif 'bluebox' in items -%}mdi:bottle-wine-outline
+
+            {%- else -%}mdi:trash-can-outline
+
+            {%- endif -%}
+          active: |
+            {%- set next = as_timestamp(states('sensor.recollect_waste')) -%}
+            {%- set days = (next - as_timestamp(now())) / 86400 -%}
+            {{ days < 1 }}
+          state: |
+            {%- set next = as_timestamp(states('sensor.recollect_waste')) -%}
+            {%- set days = (next - as_timestamp(now())) / 86400 -%}
+            {%- if days < 2.0 -%}Tomorrow
+            {%- else -%}{{ days | round(0,'ceil') }} days
+            {%- endif -%}
+          secondary: >
+            {%- set next = as_timestamp(states('sensor.recollect_waste')) -%}
+
+            {%- if next | timestamp_custom('%a',false) != 'Mon' -%}⚠️ {%-
+            endif -%} {{ next | timestamp_custom('%A, %B
+            %-d',false)}}                    
+    - type: grid
+      columns: 2
+      cards:
+        - type: grid
+          columns: 2
+          cards:
+            - type: button
+              tap_action:
+                action: toggle
+              entity: switch.sonoff_1000c6080b
+              show_name: true
+              show_state: true
+              icon: 'mdi:lightbulb'
+              name: Front Door
+            - type: button
+              tap_action:
+                action: toggle
+              show_name: true
+              show_state: true
+              entity: light.eb45e14e47084faddcsa7p
+              name: Living Room
+              hold_action:
+                action: more-info
+              icon_height: '-1px'
+              show_icon: true
+            - type: button
+              tap_action:
+                action: toggle
+              show_name: true
+              show_state: true
+              entity: switch.sonoff_1000cd8a56
+              icon: 'mdi:fridge'
+              name: Fridge
+              show_icon: true
+            - type: button
+              tap_action:
+                action: toggle
+              show_name: false
+              show_state: true
+    - type: light
+      entity: light.eb45e14e47084faddcsa7p

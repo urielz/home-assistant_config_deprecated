@@ -1,0 +1,105 @@
+- platform: template
+  sensors:
+    fridge_cost_today:
+      friendly_name: 'Fridge Cost Today'
+      entity_id:
+        - sensor.fridge_daily
+        - input_number.energy_cost
+      value_template: "{{ (states('sensor.fridge_daily')|float * states('input_number.t41_energy_cost')|float) }}"
+      unit_of_measurement: "$"
+
+- platform: template
+  sensors:
+    speedtest_last_updated:
+      friendly_name: "Last Updated"
+      value_template: "{{ as_timestamp(states.sensor.speedtest_download.last_updated) | timestamp_custom('%I:%M %p %Z') }}"
+    battery_phone:
+      friendly_name: AndroidPhone Battery
+      unit_of_measurement: '%'
+      value_template: >-
+          {%- if state_attr('device_tracker.pixel_2', 'battery_level') %}
+              {{ state_attr('device_tracker.pixel_2', 'battery_level')|round }}
+          {% else %}
+              {{ states('device_tracker.pixel_2') }}
+          {%- endif %}
+      device_class: battery
+
+- platform: integration # Riemann sum: https://www.home-assistant.io/integrations/integration/
+  source: sensor.sonoff_1000cd8a56_power # POWR2 hooked up to the fridge
+  name: fridge_energy_spent
+  unit_prefix: k
+  unit_time: h
+  round: 2
+ 
+- platform: template
+  sensors:
+    arris_rtotal_bandwidth:
+      friendly_name: "Total Bandwidth"
+      unit_of_measurement: 'GBs'
+      value_template: "{{((states('sensor.arris_dg2470a_router_b_received') | float / 1000000000) + (states('sensor.arris_dg2470a_router_b_sent') | float / 1000000000))| round(2)}}"
+
+
+# Tides :: Initial set up: Jan-05-2021 
+# https://www.worldtides.info/ - using custom code to use API v2, see link below:
+# https://github.com/jugla/worldtidesinfocustom
+# https://www.home-assistant.io/integrations/worldtidesinfo
+- platform: worldtidesinfocustom
+  name: halifax_tides
+  api_key: 2bccd91f-ee9a-463d-b1fc-0fd01665dde3
+  latitude: 44.666698 
+  longitude: -63.583302 
+# vertical_ref : LAT # see: https://www.worldtides.info/datums 
+# scan_interval: 900
+# worldtides_request_interval: 43200
+- platform: template
+  sensors: 
+    tide_next_high:
+      value_template: '{{ as_timestamp(states.sensor.halifax_tides.attributes.high_tide_time_utc) | timestamp_custom("%H:%M") }}'
+      friendly_name: "High Tide"
+      icon_template: 'mdi:flag-variant'
+    tide_next_low:
+      value_template: '{{ as_timestamp(states.sensor.halifax_tides.attributes.low_tide_time_utc) | timestamp_custom("%H:%M") }}'
+      friendly_name: "Low Tide"
+      icon_template: 'mdi:flag-variant-outline'
+    tide_next_high_height:
+      value_template: "{{ state_attr('sensor.halifax_tides','high_tide_height')  }}"
+      friendly_name: "High Tide Height"
+      unit_of_measurement: m
+    tide_next_low_height:
+      value_template: "{{ state_attr('sensor.halifax_tides','low_tide_height')  }}"
+      friendly_name: "Low Tide Height"
+      unit_of_measurement: m
+    tide_credit:
+      value_template: "{{ state_attr('sensor.halifax_tides','CreditCallUsed')  }}"
+      friendly_name: "Tide Credit"
+      unit_of_measurement: credit
+    tide_current_height:
+      value_template: "{{ state_attr('sensor.halifax_tides','current_height')  }}"
+      friendly_name: "Current Height"
+      unit_of_measurement: m
+
+- platform: environment_canada
+
+- platform: rest
+  resource: http://192.168.0.19:61208/api/3/mem/used
+  name: TETS
+  method: GET
+  headers:
+    Accept-encoding: gzip
+    Content-Type: application/json
+  value_template: '{{ value_json.used| multiply(0.000000954) | round(0) }}'
+  unit_of_measurement: MB
+
+- platform: rest
+  resource: http://192.168.0.19/61208/api/3/docker
+  name: TEST
+  method: GET
+  headers:
+    Accept-encoding: gzip
+    Content-Type: application/json
+  value_template: '{{ value_json.used}}'
+  
+- platform: rest
+  resource: http://ip.jsontest.com
+  name: External IP
+  value_template: '{{ value_json.ip }}'

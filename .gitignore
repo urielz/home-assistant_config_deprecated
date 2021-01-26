@@ -1,0 +1,22 @@
+# Ignore folders
+.storage
+.cloud
+.google.token
+.vs_code
+esphome
+node-red
+themes
+tts
+blueprints
+deps
+vaccum
+www
+
+# Ignore files
+ip_bans.yaml
+secrets.yaml
+known_devices.yaml
+google_calendars.yaml
+home-assistant.log
+home-assistant_v2.db
+token.txt
