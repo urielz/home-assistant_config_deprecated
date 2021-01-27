@@ -1,4 +1,5 @@
 title: Home
+icon: 'mdi:home'
 panel: true
 badges: []
 cards:
@@ -8,6 +9,9 @@ cards:
     cards:
       - type: vertical-stack
         cards:
+          - type: custom:mini-media-player
+            artwork: cover
+            entity: media_player.speaker
           - type: glance
             style: |
               ha-card {

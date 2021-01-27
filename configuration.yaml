@@ -9,9 +9,9 @@ lovelace:
   mode: yaml
   resources:
   # Mini Graph Card (HACS): https://github.com/kalkih/mini-graph-card
-    - {type: module, url: /local/community/mini-graph-card/mini-graph-card-bundle.js?v=0.10.0}
+    - {type: module, url: '/local/community/mini-graph-card/mini-graph-card-bundle.js?v=0.10.0'}
   # Atomic Calendar Revive (HACS): https://github.com/marksie1988/atomic-calendar-revive
-    - {type: module, url: /local/community/atomic-calendar-revive/atomic-calendar-revive.js}
+    - {type: module, url: '/local/community/atomic-calendar-revive/atomic-calendar-revive.js'}
   # Check Button Card (HACS) - https://github.com/custom-cards/check-button-card
     - {type: module, url: '/local/community/check-button-card/check-button-card.js'}
   # Scheduler Component (HACS) - https://github.com/nielsfaber/scheduler-component
@@ -22,6 +22,8 @@ lovelace:
     - {type: module, url: '/local/community/lovelace-template-entity-row/template-entity-row.js'}
   # card-mod (HACS) - https://github.com/thomasloven/lovelace-card-mod
     - {type: module, url: '/local/community/lovelace-card-mod/card-mod.js'}
+  # Mini Media Player (HACS): https://github.com/kalkih/mini-media-player
+    - {type: module, url: '/local/community/mini-media-player/mini-media-player-bundle.js'}
 
 frontend:
   themes: !include_dir_merge_named themes
