@@ -4,14 +4,14 @@
 
 default_config:
 
-# lovelace UI YAML mode (raw editor is disable, now code is in ui-lovelace.yaml)
+# YAML mode. Raw editor in lovelace UI is disabled
 lovelace:
   mode: yaml
   resources:
-    - url: /local/community/mini-graph-card/mini-graph-card-bundle.js?v=0.10.0
-      type: module
-    - url: /local/community/atomic-calendar-revive/atomic-calendar-revive.js
-      type: module
+  # Mini Graph Card (HACS): https://github.com/kalkih/mini-graph-card
+    - {type: module, url: /local/community/mini-graph-card/mini-graph-card-bundle.js?v=0.10.0}
+  # Atomic Calendar Revive (HACS): https://github.com/marksie1988/atomic-calendar-revive
+    - {type: module, url: /local/community/atomic-calendar-revive/atomic-calendar-revive.js}
   # Check Button Card (HACS) - https://github.com/custom-cards/check-button-card
     - {type: module, url: '/local/community/check-button-card/check-button-card.js'}
   # Scheduler Component (HACS) - https://github.com/nielsfaber/scheduler-component
@@ -26,22 +26,25 @@ lovelace:
 frontend:
   themes: !include_dir_merge_named themes
 
-group: !include groups.yaml
 automation: !include automations.yaml
+group: !include groups.yaml
 script: !include scripts.yaml
 scene: !include scenes.yaml
 sensor: !include sensors.yaml
-utility_meter: !include utility_meters.yaml
 switch: !include switches.yaml
+utility_meter: !include utility_meters.yaml
 
-input_number:
-  wan_traffic_delta_in:
-    min: 0
-    max: 4294967295
-  wan_traffic_delta_out:
-    min: 0
-    max: 4294967295
+# influxDB database: https://www.home-assistant.io/integrations/influxdb/
+influxdb:
+  host: a0d7b954-influxdb
+  port: 8086
+  database: homeassistant
+  username: !secret influxdb_username
+  password: !secret influxdb_password
+  max_retries: 3
+  default_measurement: state
 
+# Bandwidth perfomance: https://www.home-assistant.io/integrations/speedtestdotnet/ 
 speedtestdotnet:
   scan_interval:
     days: 0
@@ -50,12 +53,19 @@ speedtestdotnet:
     seconds: 0
     milliseconds: 0
 
-# Google Calendar integration - deployed 2020-Dec-15
-# source: 
+# Google Calendar: https://www.home-assistant.io/integrations/calendar.google
 google:
   client_id: !secret google_client_id
   client_secret: !secret google_client_secret
 
+# Climate Integration: https://www.home-assistant.io/integrations/climate/
+climate:
+  - platform: fujitsu_general_heatpump
+    username: !secret climate_username
+    password: !secret climate_password 
+    tokenpath: 'token.txt'
+
+# Environment Canada: https://www.home-assistant.io/integrations/environment_canada/
 weather:
   - platform: environment_canada 
 
@@ -72,19 +82,11 @@ sonoff:
   force_update: [temperature, power]
   scan_interval: '00:01:00'  # (optional) default 5 minutes
   sensors: [temperature, humidity, power, current, voltage]
-
-climate:
-   - platform: fujitsu_general_heatpump
-     username: !secret climate_username
-     password: !secret climate_password 
-     tokenpath: 'token.txt'
-
-influxdb:
-  host: a0d7b954-influxdb
-  port: 8086
-  database: homeassistant
-  username: !secret influxdb_username
-  password: !secret influxdb_password
-  max_retries: 3
-  default_measurement: state
-
+  
+input_number:
+ wan_traffic_delta_in:
+   min: 0
+   max: 4294967295
+ wan_traffic_delta_out:
+   min: 0
+   max: 4294967295
