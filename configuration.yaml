@@ -87,3 +87,8 @@ sonoff:
   force_update: [temperature, power]
   scan_interval: '00:01:00'  # (optional) default 5 minutes
   sensors: [temperature, humidity, power, current, voltage]
+
+roomba:
+  - host: 192.168.0.24 
+    blid: !secret roomba_blid
+    password: !secret roomba_password  
