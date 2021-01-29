@@ -32,6 +32,7 @@ frontend:
 
 automation: !include automations.yaml
 group: !include groups.yaml
+input_number: !include input_number.yaml
 script: !include scripts.yaml
 scene: !include scenes.yaml
 sensor: !include sensors.yaml
@@ -86,11 +87,3 @@ sonoff:
   force_update: [temperature, power]
   scan_interval: '00:01:00'  # (optional) default 5 minutes
   sensors: [temperature, humidity, power, current, voltage]
-  
-input_number:
- wan_traffic_delta_in:
-   min: 0
-   max: 4294967295
- wan_traffic_delta_out:
-   min: 0
-   max: 4294967295

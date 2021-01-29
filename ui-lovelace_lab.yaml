@@ -15,7 +15,7 @@ cards:
         name: Received
       - entity: sensor.arris_dg2470a_router_kib_s_sent
         name: Sent
-      - type: entities
+  - type: entities
     entities:
       - sensor.tets
   - type: picture-entity
