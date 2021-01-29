@@ -109,7 +109,8 @@ cards:
             name: Status
           - entity: sensor.roomba_battery_level
             name: Battery
-          - entity: binary_sensor.roomba_bin_full
+          #- entity: binary_sensor.roomba_bin_full
+          - entity: sensor.roomba_bin
         state_color: true
         columns: 3
       - type: grid

@@ -1,56 +1,47 @@
-- platform: template
-  sensors:
-    fridge_cost_today:
-      friendly_name: 'Fridge Cost Today'
-      entity_id:
-        - sensor.fridge_daily
-        - input_number.energy_cost
-      value_template: "{{ (states('sensor.fridge_daily')|float * states('input_number.t41_energy_cost')|float) }}"
-      unit_of_measurement: "$"
+###############################################################################
+# Sensors                                                                     #
+###############################################################################
 
-- platform: template
-  sensors:
-    speedtest_last_updated:
-      friendly_name: "Last Updated"
-      value_template: "{{ as_timestamp(states.sensor.speedtest_download.last_updated) | timestamp_custom('%I:%M %p %Z') }}"
-    battery_phone:
-      friendly_name: AndroidPhone Battery
-      unit_of_measurement: '%'
-      value_template: >-
-          {%- if state_attr('device_tracker.pixel_2', 'battery_level') %}
-              {{ state_attr('device_tracker.pixel_2', 'battery_level')|round }}
-          {% else %}
-              {{ states('device_tracker.pixel_2') }}
-          {%- endif %}
-      device_class: battery
-
-- platform: integration # Riemann sum: https://www.home-assistant.io/integrations/integration/
-  source: sensor.sonoff_1000cd8a56_power # POWR2 hooked up to the fridge
-  name: fridge_energy_spent
-  unit_prefix: k
-  unit_time: h
-  round: 2
- 
-- platform: template
-  sensors:
-    arris_rtotal_bandwidth:
-      friendly_name: "Total Bandwidth"
-      unit_of_measurement: 'GBs'
-      value_template: "{{((states('sensor.arris_dg2470a_router_b_received') | float / 1000000000) + (states('sensor.arris_dg2470a_router_b_sent') | float / 1000000000))| round(2)}}"
-
-
-# Tides :: Initial set up: Jan-05-2021 
+# Tides      
 # https://www.worldtides.info/ - using custom code to use API v2, see link below:
 # https://github.com/jugla/worldtidesinfocustom
 # https://www.home-assistant.io/integrations/worldtidesinfo
 - platform: worldtidesinfocustom
   name: halifax_tides
-  api_key: 2bccd91f-ee9a-463d-b1fc-0fd01665dde3
-  latitude: 44.666698 
-  longitude: -63.583302 
-# vertical_ref : LAT # see: https://www.worldtides.info/datums 
-# scan_interval: 900
-# worldtides_request_interval: 43200
+  api_key: !secret tides_api_key
+  latitude: !secret tides_lat 
+  longitude: !secret tides_lon 
+  vertical_ref : LAT # see: https://www.worldtides.info/datums 
+  scan_interval: 900
+  worldtides_request_interval: 43200
+
+# Environment Canada  
+# https://www.home-assistant.io/integrations/environment_canada/ 
+- platform: environment_canada
+
+# Riemann sum (For Fridge Energy)
+# https://www.home-assistant.io/integrations/integration/
+- platform: integration 
+  source: sensor.sonoff_1000cd8a56_power # POWR2 hooked up to the fridge
+  name: fridge_energy_spent
+  unit_prefix: k
+  unit_time: h
+  round: 2
+
+
+################################################################################
+# Templates (entity derived sensors)                                           #
+# https://www.home-assistant.io/integrations/template/                         # 
+################################################################################
+
+# Roomba
+- platform: template
+  sensors:
+    roomba_bin:
+      value_template: '{% if is_state("binary_sensor.roomba_bin_full", "on") %}Yes{% else %}No{% endif %}'
+      friendly_name: 'Bin Full'
+
+# Tides
 - platform: template
   sensors: 
     tide_next_high:
@@ -78,11 +69,55 @@
       friendly_name: "Current Height"
       unit_of_measurement: m
 
-- platform: environment_canada
+# Pixel 2 Battery      
+- platform: template
+  sensors:
+     battery_phone:
+       friendly_name: AndroidPhone Battery
+       unit_of_measurement: '%'
+       value_template: >-
+           {%- if state_attr('device_tracker.pixel_2', 'battery_level') %}
+               {{ state_attr('device_tracker.pixel_2', 'battery_level')|round }}
+           {% else %}
+               {{ states('device_tracker.pixel_2') }}
+           {%- endif %}
+       device_class: battery
+
+# Internet Speed      
+- platform: template
+  sensors:
+    speedtest_last_updated:
+      friendly_name: "Last Updated"
+      value_template: "{{ as_timestamp(states.sensor.speedtest_download.last_updated) | timestamp_custom('%I:%M %p %Z') }}"
+
+# Internet Traffic      
+- platform: template
+  sensors:
+    arris_rtotal_bandwidth:
+    friendly_name: "Total Bandwidth"
+    unit_of_measurement: 'GBs'
+    value_template: "{{((states('sensor.arris_dg2470a_router_b_received') | float / 1000000000) + (states('sensor.arris_dg2470a_router_b_sent') | float / 1000000000))| round(2)}}"
+
+# Fridge Cost
+- platform: template
+  sensors:
+    fridge_cost_today:
+      friendly_name: 'Fridge Cost Today'
+      entity_id:
+        - sensor.fridge_daily
+        - input_number.energy_cost
+      value_template: "{{ (states('sensor.fridge_daily')|float * states('input_number.t41_energy_cost')|float) }}"
+      unit_of_measurement: "$"
+
+
+################################################################################
+# Rest (Sensors derived from RESTful API endpoints                             #
+# https://www.home-assistant.io/integrations/rest/                             # 
+################################################################################
 
 - platform: rest
   resource: http://192.168.0.19:61208/api/3/mem/used
-  name: TETS
+  name: mem_used 
   method: GET
   headers:
     Accept-encoding: gzip
@@ -92,13 +127,14 @@
 
 - platform: rest
   resource: http://192.168.0.19/61208/api/3/docker
-  name: TEST
+  name: containers_list
   method: GET
   headers:
     Accept-encoding: gzip
     Content-Type: application/json
   value_template: '{{ value_json.used}}'
-  
+
+# Internet IP
 - platform: rest
   resource: http://ip.jsontest.com
   name: External IP
