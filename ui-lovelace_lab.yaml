@@ -18,17 +18,24 @@ cards:
   - type: entities
     entities:
       - sensor.containers_list
-  - type: picture-entity
-    entity: camera.halifax_tides_curve
+#  - type: picture-entity
+#    entity: camera.halifax_tides_curve
   - type: sensor
-    entity: sensor.arris_rtotal_bandwidth
+    entity: sensor.arris_total
     graph: line
+
   - type: entities
     entities:
-      - entity: sensor.fridge_daily
-#  - type: entities
-#    entities:
-#      - input_number.energy_cost
+      - sensor.fridge_daily
+      - sensor.fridge_cost_daily
+      - sensor.fridge_monthly
+      - sensor.fridge_cost_monthly
+
   - type: entities
-    entities:
-      - sensor.fridge_cost_today
+    entities:     
+      - sensor.internet_total_daily
+      - sensor.internet_up_daily
+      - sensor.internet_down_daily
+      - sensor.internet_total_monthly
+      - sensor.internet_up_monthly
+      - sensor.internet_down_monthly

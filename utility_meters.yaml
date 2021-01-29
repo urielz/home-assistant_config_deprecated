@@ -1,16 +1,33 @@
+# https://www.home-assistant.io/integrations/utility_meter/
+
 fridge_daily:
   source: sensor.fridge_energy_spent
   cycle: daily
 
-#daily_internet_usage_in:
-#  source: sensor.internet_usage_in
-#  cycle: daily
-#monthly_internet_usage_in:
-#  source: sensor.internet_usage_in
-#  cycle: monthly
-#daily_internet_usage_out:
-#  source: sensor.internet_usage_out
-#  cycle: daily
-#monthly_internet_usage_out:
-#  source: sensor.internet_usage_out
-#  cycle: monthly
+fridge_monthly:
+  source: sensor.fridge_energy_spent
+  cycle: monthly
+
+internet_total_daily:
+  source: sensor.arris_total
+  cycle: daily
+
+internet_up_daily:
+  source: sensor.arris_up
+  cycle: daily
+  
+internet_down_daily:
+  source: sensor.arris_down
+  cycle: daily
+
+internet_total_monthly:
+  source: sensor.arris_total
+  cycle: monthly
+    
+internet_up_monthly:
+  source: sensor.arris_up
+  cycle: monthly
+      
+internet_down_monthly:
+  source: sensor.arris_down
+  cycle: monthly    

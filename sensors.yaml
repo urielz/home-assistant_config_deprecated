@@ -93,20 +93,29 @@
 # Internet Traffic      
 - platform: template
   sensors:
-    arris_rtotal_bandwidth:
-    friendly_name: "Total Bandwidth"
-    unit_of_measurement: 'GBs'
-    value_template: "{{((states('sensor.arris_dg2470a_router_b_received') | float / 1000000000) + (states('sensor.arris_dg2470a_router_b_sent') | float / 1000000000))| round(2)}}"
-
+    arris_total:
+      friendly_name: 'Total Bandwidth'
+      unit_of_measurement: 'GBs'
+      value_template: "{{((states('sensor.arris_dg2470a_router_b_received') | float / 1000000000) + (states('sensor.arris_dg2470a_router_b_sent') | float / 1000000000))| round(2)}}"
+    arris_up:
+      friendly_name: 'Upload Bandwidth'
+      unit_of_measurement: 'GBs'
+      value_template: "{{((states('sensor.arris_dg2470a_router_b_sent') | float / 1000000000))| round(2)}}"
+    arris_down:
+      friendly_name: 'Download Bandwidth'
+      unit_of_measurement: 'GBs'
+      value_template: "{{((states('sensor.arris_dg2470a_router_b_received') | float / 1000000000))| round(2)}}"
+      
 # Fridge Cost
 - platform: template
   sensors:
-    fridge_cost_today:
-      friendly_name: 'Fridge Cost Today'
-      entity_id:
-        - sensor.fridge_daily
-        - input_number.energy_cost
-      value_template: "{{ (states('sensor.fridge_daily')|float * states('input_number.t41_energy_cost')|float) }}"
+    fridge_cost_daily:
+      friendly_name: 'Daily Fridge Cost'
+      value_template: "{{ (states('sensor.fridge_daily')|float * states('input_number.energy_cost')|float) }}"
+      unit_of_measurement: "$"
+    fridge_cost_monthly:
+      friendly_name: 'Monthly Fridge Cost'
+      value_template: "{{ (states('sensor.fridge_monthly')|float * states('input_number.energy_cost')|float) }}"
       unit_of_measurement: "$"
 
 
@@ -114,6 +123,12 @@
 # Rest (Sensors derived from RESTful API endpoints                             #
 # https://www.home-assistant.io/integrations/rest/                             # 
 ################################################################################
+
+# Internet IP
+- platform: rest
+  resource: http://ip.jsontest.com
+  name: External IP
+  value_template: '{{ value_json.ip }}'
 
 - platform: rest
   resource: http://192.168.0.19:61208/api/3/mem/used
@@ -134,8 +149,3 @@
     Content-Type: application/json
   value_template: '{{ value_json.used}}'
 
-# Internet IP
-- platform: rest
-  resource: http://ip.jsontest.com
-  name: External IP
-  value_template: '{{ value_json.ip }}'
