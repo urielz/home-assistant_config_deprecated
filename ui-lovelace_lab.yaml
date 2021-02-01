@@ -39,3 +39,11 @@ cards:
       - sensor.internet_total_monthly
       - sensor.internet_up_monthly
       - sensor.internet_down_monthly
+
+  - type: entities
+    title: Template dev
+    entities:
+    - type: custom:hui-markdown
+      content: >-
+        The temperature is {{ states("sensor.fridge_daily") }}°C and the
+        humidity is {{ states("sensor.fridge_monthly") }}%       
