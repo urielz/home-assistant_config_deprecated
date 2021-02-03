@@ -19,7 +19,53 @@ cards:
             entity: media_player.speaker
           - type: thermostat
             entity: climate.ac_uty_a0cc2beda5f7
-            name: Heat Pump            
+            name: Heat Pump
+          - type: vertical-stack
+            cards:
+              - type: 'custom:mini-graph-card'
+                style: |
+                  ha-card {
+                    color: white;
+                    font-size: 12px;
+                  }
+                  .card-header {
+                    font-size: 20px;
+                    text-align: center;
+                    line-height: 70%;
+                  }                    
+                name: Temperature
+                font_size: 75
+                hours_to_show: 48 
+                points_per_hour: 4
+                line_width: 2
+                show:
+                  #extrema: true
+                  #labels: true
+                  #labels_secondary: false 
+                entities:
+                  - entity: sensor.bme280_temperature
+                    name: Office
+                    color: '#e74c3c' 
+                  - entity: sensor.bme280_temperature_2
+                    name: Tobi's Room
+                    color: '#aaffc3'
+                  - entity: sensor.bme280_temperature_3
+                    name: Game Room 
+                    color: '#ffd8b1'
+                  - entity: binary_sensor.night
+                    color: rgba(255,255,255,.25)
+                    y_axis: secondary
+                    #smoothing: false # for binary_sensor smoothing is automatically turned to false by default so this line is unnecessary in this case
+                    aggregate_func: min
+                    show_state: true
+                    show_line: false
+                    show_points: false
+                state_map:
+                  - value: "off"
+                    label: "Day"
+                  - value: "on"
+                    label: "Night"
+               
       - break
       ######################################################################
       # 2nd Column
@@ -76,44 +122,6 @@ cards:
             name: Pressure
           - entity: sensor.bme280_humidity_3
             name: Humidity
-      - type: vertical-stack
-        cards:
-          - type: 'custom:mini-graph-card'
-            style: |
-              ha-card {
-                color: white;
-                font-size: 12px;
-              }
-              .card-header {
-                font-size: 20px;
-                text-align: center;
-                line-height: 70%;
-              }                    
-            name: Temperature
-            font_size: 75
-            hours_to_show: 96
-            points_per_hour: 4
-            #show:
-            #  extrema: true
-            #  labels: true
-            #  labels_secondary: true
-            entities:
-              - entity: sensor.bme280_temperature
-                name: Office
-                color: '#4363d8'
-              - entity: sensor.bme280_temperature_2
-                name: Tobi's Room
-                color: '#aaffc3'
-              - entity: sensor.bme280_temperature_3
-                name: Game Room 
-                color: '#f58231'
-             # - color: gray
-             #   entity: input_number.nighttime
-             #   name: Night
-             #   show_line: false
-             #   show_points: false
-             #   show_legend: false
-             #   y_axis: secondary
       - break
       ######################################################################
       # 3rd Column

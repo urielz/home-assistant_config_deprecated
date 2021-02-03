@@ -31,6 +31,7 @@ frontend:
   themes: !include_dir_merge_named themes
 
 automation: !include automations.yaml
+binary_sensor: !include binary_sensors.yaml
 group: !include groups.yaml
 input_number: !include input_number.yaml
 script: !include scripts.yaml
@@ -91,4 +92,4 @@ sonoff:
 roomba:
   - host: 192.168.0.24 
     blid: !secret roomba_blid
-    password: !secret roomba_password  
+    password: !secret roomba_password

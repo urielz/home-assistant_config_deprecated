@@ -148,4 +148,3 @@
     Accept-encoding: gzip
     Content-Type: application/json
   value_template: '{{ value_json.used}}'
-
