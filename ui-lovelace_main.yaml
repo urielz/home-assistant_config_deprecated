@@ -39,9 +39,8 @@ cards:
                 points_per_hour: 4
                 line_width: 2
                 show:
-                  #extrema: true
-                  #labels: true
-                  #labels_secondary: false 
+                  labels: false 
+                  labels_secondary: false 
                 entities:
                   - entity: sensor.bme280_temperature
                     name: Office
@@ -53,11 +52,11 @@ cards:
                     name: Game Room 
                     color: '#ffd8b1'
                   - entity: binary_sensor.night
-                    color: rgba(255,255,255,.25)
+                    color: rgba(255,255,255)
                     y_axis: secondary
-                    #smoothing: false # for binary_sensor smoothing is automatically turned to false by default so this line is unnecessary in this case
-                    aggregate_func: min
-                    show_state: true
+                    #aggregate_func: min
+                    show_state: false
+                    show_legend: false
                     show_line: false
                     show_points: false
                 state_map:
