@@ -17,9 +17,6 @@ cards:
           - type: custom:mini-media-player
             artwork: cover
             entity: media_player.speaker
-          - type: thermostat
-            entity: climate.ac_uty_a0cc2beda5f7
-            name: Heat Pump
           - type: vertical-stack
             cards:
               - type: 'custom:mini-graph-card'
@@ -51,6 +48,9 @@ cards:
                   - entity: sensor.bme280_temperature_3
                     name: Game Room 
                     color: '#ffd8b1'
+                  - entity: sensor.bme280_temperature_4
+                    name: Living Room 
+                    color: rgba(106,90,205)
                   - entity: binary_sensor.night
                     color: rgba(255,255,255)
                     y_axis: secondary
@@ -64,6 +64,9 @@ cards:
                     label: "Day"
                   - value: "on"
                     label: "Night"
+          - type: thermostat
+            entity: climate.ac_uty_a0cc2beda5f7
+            name: Heat Pump                    
                
       - break
       ######################################################################
@@ -121,6 +124,25 @@ cards:
             name: Pressure
           - entity: sensor.bme280_humidity_3
             name: Humidity
+      - type: glance
+        title: Living Room
+        style: |
+          ha-card {
+            color: white;
+            font-size: 11px;
+          }
+          .card-header {
+            font-size: 18px;
+            text-align: center;
+            line-height: 100%;
+          }          
+        entities:
+          - entity: sensor.bme280_temperature_4
+            name: Temperature 
+          - entity: sensor.bme280_pressure_4
+            name: Pressure
+          - entity: sensor.bme280_humidity_4
+            name: Humidity            
       - break
       ######################################################################
       # 3rd Column
