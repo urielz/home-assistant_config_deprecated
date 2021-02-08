@@ -28,6 +28,15 @@
   unit_time: h
   round: 2
 
+- platform: min_max
+  type: mean
+  name: temperature_mean
+  entity_ids:
+    - sensor.bme280_temperature
+    - sensor.bme280_temperature_2
+    - sensor.bme280_temperature_3
+    - sensor.bme280_temperature_4
+
 
 ################################################################################
 # Templates (entity derived sensors)                                           #

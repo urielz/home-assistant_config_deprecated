@@ -51,6 +51,10 @@ cards:
                   - entity: sensor.bme280_temperature_4
                     name: Living Room 
                     color: rgba(106,90,205)
+                  - entity: sensor.temperature_mean
+                    name: <T>
+                  #- entity: sensor.temperature
+                  #  name: Outside
                   - entity: binary_sensor.night
                     color: rgba(255,255,255)
                     y_axis: secondary
