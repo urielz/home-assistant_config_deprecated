@@ -275,3 +275,51 @@ cards:
             show_points: false
             show_legend: false
             y_axis: secondary
+      # second POWR2
+      - type: glance
+        style: |
+          ha-card {
+            color: white;
+            font-size: 11px;
+          }      
+          .card-header {
+            font-size: 18px;
+            text-align: center;
+            line-height: 70%;
+          }          
+        entities:
+          - entity: sensor.sonoff_1000cd8a67_current
+            name: Current
+          - entity: sensor.sonoff_1000cd8a67_power
+            name: Power
+          - entity: sensor.sonoff_1000cd8a67_voltage
+            name: Voltage
+        title: Test POWR2 on Kettle
+      - type: 'custom:mini-graph-card'
+        style: |
+          ha-card {
+            color: white;
+            font-size: 11px;
+          }
+          .card-header {
+            font-size: 18px;
+            text-align: center;
+            line-height: 70%;
+          }                    
+        font_size: 70 
+        hours_to_show: 6
+        points_per_hour: 6
+        show:
+          extrema: true
+        entities:
+          - entity: sensor.sonoff_1000cd8a67_power
+            name: Power
+          - entity: sensor.sonoff_1000cd8a67_current
+            name: Current
+          - color: gray
+            entity: input_number.nighttime
+            name: Night
+            show_line: false
+            show_points: false
+            show_legend: false
+            y_axis: secondary            
