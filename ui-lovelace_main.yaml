@@ -173,7 +173,7 @@ cards:
         state_color: true
         columns: 3
       - type: grid
-        columns: 2 
+        columns: 3 
         cards:
           - type: 'custom:button-card'
             entity: switch.sonoff_1000c6080b
@@ -185,7 +185,7 @@ cards:
             styles:
               card:
               - font-size: 11px
-              - height: 100px
+              - height: 80px
             state:
               - value: 'on' 
                 icon: mdi:lightbulb-on
@@ -201,11 +201,24 @@ cards:
             styles:
               card:
               - font-size: 11px
-              - height: 100px
+              - height: 80px
             hold_action:
               action: more-info  
+          - type: 'custom:button-card'
+            entity: switch.sonoff_1000cd8a67
+            icon: mdi:music
+            color: rgb(255, 255, 102)
+            name: A/V System
+            show_state: true
+            show_name: true
+            styles:
+              card:
+              - font-size: 11px
+              - height: 80px
+            hold_action:
+              action: more-info                
       - type: grid
-        columns: 2 
+        columns: 3
         cards:                                  
           - type: 'custom:button-card'
             entity: climate.ac_uty_a0cc2beda5f7
@@ -294,7 +307,7 @@ cards:
             name: Power
           - entity: sensor.sonoff_1000cd8a67_voltage
             name: Voltage
-        title: Test POWR2 on Kettle
+        title: A/V System
       - type: 'custom:mini-graph-card'
         style: |
           ha-card {
