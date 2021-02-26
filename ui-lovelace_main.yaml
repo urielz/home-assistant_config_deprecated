@@ -304,10 +304,18 @@ cards:
             text-align: center;
             line-height: 70%;
           }          
+        columns: 3 
         entities:
           - entity: sensor.sonoff_1000cd8a56_current
-          - entity: sensor.sonoff_1000cd8a56_power
           - entity: sensor.sonoff_1000cd8a56_voltage
+          - entity: sensor.sonoff_1000cd8a56_power
+          - entity: sensor.fridge_daily
+            name: Today
+          - entity: sensor.fridge_monthly
+            name: This Month
+          - entity: sensor.fridge_cost_monthly
+            name: Monthly Cost
+            icon: mdi:currency-usd
         title: Refrigerator
       - type: 'custom:mini-graph-card'
         style: |
