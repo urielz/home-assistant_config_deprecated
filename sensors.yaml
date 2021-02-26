@@ -129,11 +129,11 @@
   sensors:
     fridge_cost_daily:
       friendly_name: 'Daily Fridge Cost'
-      value_template: "{{ (states('sensor.fridge_daily')|float * states('input_number.energy_cost')|float) }}"
+      value_template: "{{ (states('sensor.fridge_daily')|float * states('input_number.energy_cost')|float)|round(2) }}"
       unit_of_measurement: "$"
     fridge_cost_monthly:
       friendly_name: 'Monthly Fridge Cost'
-      value_template: "{{ (states('sensor.fridge_monthly')|float * states('input_number.energy_cost')|float) }}"
+      value_template: "{{ (states('sensor.fridge_monthly')|float * states('input_number.energy_cost')|float)|round(1) }}"
       unit_of_measurement: "$"
 
 
