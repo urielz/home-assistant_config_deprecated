@@ -26,6 +26,8 @@ lovelace:
     - {type: module, url: '/local/community/mini-media-player/mini-media-player-bundle.js'}
   # Button Card (HACS): https://github.com/custom-cards/button-card
     - {type: module, url: '/local/community/button-card/button-card.js'}
+  # BHA Icons (HACS): https://github.com/hulkhaugen/hass-bha-icons
+    - {type: js, url: 'local/community/hass-bha-icons/hass-bha-icons.js'}
 
 frontend:
   themes: !include_dir_merge_named themes
