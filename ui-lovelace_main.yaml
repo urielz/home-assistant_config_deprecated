@@ -237,9 +237,11 @@ cards:
               - height: 80px
             state:
               - value: 'on' 
-                icon: mdi:lightbulb-on
+                #icon: mdi:lightbulb-on
+                icon: bha:outdoor-lamp-variant
               - value: 'off'
-                icon: mdi:lightbulb
+                icon: bha:outdoor-lamp-variant
+                #icon: mdi:lightbulb
           - type: 'custom:button-card'
             entity: light.eb45e14e47084faddcsa7p
             icon: mdi:floor-lamp
@@ -333,6 +335,7 @@ cards:
         points_per_hour: 6
         show:
           extrema: true
+        name: Refrigerator Power
         entities:
           - entity: sensor.sonoff_1000cd8a56_power
             name: Power
