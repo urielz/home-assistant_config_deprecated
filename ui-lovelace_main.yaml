@@ -68,6 +68,55 @@ cards:
                     label: "Day"
                   - value: "on"
                     label: "Night"
+              - type: 'custom:mini-graph-card'
+                style: |
+                  ha-card {
+                    color: white;
+                    font-size: 12px;
+                  }
+                  .card-header {
+                    font-size: 20px;
+                    text-align: center;
+                    line-height: 70%;
+                  }                    
+                name: Relative Humidity
+                font_size: 75
+                hours_to_show: 48 
+                points_per_hour: 4
+                line_width: 2
+                show:
+                  labels: false 
+                  labels_secondary: false 
+                entities:
+                  - entity: sensor.bme280_humidity
+                    name: Office
+                    color: '#e74c3c' 
+                  - entity: sensor.bme280_humidity_2
+                    name: Tobi's Room
+                    color: '#aaffc3'
+                  - entity: sensor.bme280_humidity_3
+                    name: Game Room 
+                    color: '#ffd8b1'
+                  - entity: sensor.bme280_humidity_4
+                    name: Living Room 
+                    color: rgba(106,90,205)
+                  - entity: sensor.humidity_mean
+                    name: <RH>
+                  #- entity: sensor.temperature
+                  #  name: Outside
+                  - entity: binary_sensor.night
+                    color: rgba(255,255,255)
+                    y_axis: secondary
+                    #aggregate_func: min
+                    show_state: false
+                    show_legend: false
+                    show_line: false
+                    show_points: false
+                state_map:
+                  - value: "off"
+                    label: "Day"
+                  - value: "on"
+                    label: "Night"                    
           - type: thermostat
             entity: climate.ac_uty_a0cc2beda5f7
             name: Heat Pump                    

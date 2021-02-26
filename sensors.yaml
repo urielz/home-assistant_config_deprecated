@@ -37,6 +37,15 @@
     - sensor.bme280_temperature_3
     - sensor.bme280_temperature_4
 
+- platform: min_max
+  type: mean
+  name: humidity_mean
+  entity_ids:
+    - sensor.bme280_humidity
+    - sensor.bme280_humidity_2
+    - sensor.bme280_humidity_3
+    - sensor.bme280_humidity_4    
+
 
 ################################################################################
 # Templates (entity derived sensors)                                           #

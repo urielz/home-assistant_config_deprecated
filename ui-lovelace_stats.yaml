@@ -1,26 +1,15 @@
 title: Full Stats
 path: stats
 icon: 'mdi:chart-bell-curve'
-panel: false
+panel: true
 badges: []
 cards:
-  - type: iframe
-    url: >-
-      http://192.168.0.19:8123/api/hassio_ingress/LHTsI-8SErQW3h-176uiuMu_69325eSPyt_2eu1giqM/d/nJltV4Rgz/temperatures?orgId=1&refresh=1m&kiosk&viewPanel=2
-    aspect_ratio: 100%
-  - type: history-graph
-    entities:
-      - entity: sensor.bme280_temperature
-      - entity: sensor.bme280_humidity
-      - entity: sensor.bme280_pressure
-    hours_to_show: 48
-    refresh_interval: 0
-    title: Office
-  - type: history-graph
-    entities:
-      - entity: sensor.bme280_temperature_2
-      - entity: sensor.bme280_humidity_2
-      - entity: sensor.bme280_pressure_2
-    hours_to_show: 48
-    refresh_interval: 0
-    title: Tobi's Bedroom
+  - type: 'custom:layout-card'
+    layout: vertical
+    max_columns: 1 
+    max_width: [100%]     
+    cards:
+      - type: iframe
+        url: >-
+          http://192.168.0.19:8123/api/hassio_ingress/LHTsI-8SErQW3h-176uiuMu_69325eSPyt_2eu1giqM/d/nJltV4Rgz/temperatures?orgId=1&refresh=1m&kiosk&viewPanel=2
+        aspect_ratio: 50%  
