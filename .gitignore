@@ -11,6 +11,7 @@ blueprints
 deps
 vacuum
 www
+custom_components
 
 # Ignore files
 ip_bans.yaml
@@ -18,5 +19,7 @@ secrets.yaml
 known_devices.yaml
 google_calendars.yaml
 home-assistant.log
-home-assistant_v2.db
+home-assistant_v2*
 token.txt
+.sonoff.json
+.HA_VERSION
