@@ -7,6 +7,21 @@ cards:
       - switch.sonoff_1000c6080b
     title: ''
     discover_existing: false
+  - type: 'custom:scheduler-card'
+    style: |
+      ha-card {
+        color: white;
+        font-size: 12px;
+      }      
+      .card-header {
+        font-size: 18px;
+        text-align: center;
+      }        
+    include:
+      - climate.ac_uty_a0cc2beda5f7
+    name: 'my name'
+    title: 'Heat Pump Schedule'
+    discover_existing: false
   - type: entities
     style: |
       ha-card {
