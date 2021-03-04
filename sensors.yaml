@@ -28,6 +28,24 @@
   unit_time: h
   round: 2
 
+# Riemann sum (For A/V Energy)
+# https://www.home-assistant.io/integrations/integration/
+- platform: integration 
+  source: sensor.sonoff_1000cd8a60_power # POWR2 hooked up to the A/V system
+  name: av_energy_spent
+  unit_prefix: k
+  unit_time: h
+  round: 2
+
+# Riemann sum (For Washer Energy)
+# https://www.home-assistant.io/integrations/integration/
+- platform: integration 
+  source: sensor.sonoff_1000cd8a67_power # POWR2 hooked up to the Washer
+  name: washer_energy_spent
+  unit_prefix: k
+  unit_time: h
+  round: 2  
+
 - platform: min_max
   type: mean
   name: temperature_mean
