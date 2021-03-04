@@ -275,8 +275,9 @@ cards:
             entity: climate.ac_uty_a0cc2beda5f7
             icon: mdi:air-conditioner
             color: rgb(255, 255, 102)
+            name: Heat Pump
             show_state: true
-            show_name: false
+            show_name: true
             styles:
               card:
               - font-size: 11px
@@ -285,26 +286,44 @@ cards:
             entity: switch.sonoff_1000cd8a56
             icon: 'mdi:fridge'
             color: rgb(255, 255, 102)
+            name: Fridge
             show_state: true
-            show_name: false
+            show_name: true
             styles:
               card:
               - font-size: 11px
               - height: 80px
           - type: 'custom:button-card'
             entity: switch.sonoff_1000c4ed2f
-            icon: mdi:water-percent
+            icon: mdi:air-humidifier
+            #icon: 'file:noun_humidity' # custom icons see file-loader.js
             color: rgb(255, 255, 102)
+            name: Humidifier
             show_state: true
-            show_name: false
+            show_name: true
             styles:
               card:
               - font-size: 11px
-              - height: 80px              
+              - height: 80px
+      - type: grid
+        columns: 3
+        cards:                                  
+          - type: 'custom:button-card'
+            #entity: climate.ac_uty_a0cc2beda5f7
+            icon: mdi:washing-machine
+            color: rgb(255, 255, 102)
+            name: Washer 
+            show_state: true
+            show_name: true
+            styles:
+              card:
+              - font-size: 11px
+              - height: 80px          
       - break
       ######################################################################
       # 4th Column
       ######################################################################
+      # first Sonoff POWR2 (Fridge)
       - type: glance
         style: |
           ha-card {
@@ -319,8 +338,11 @@ cards:
         columns: 3 
         entities:
           - entity: sensor.sonoff_1000cd8a56_current
+            name: Current
           - entity: sensor.sonoff_1000cd8a56_voltage
+            name: Voltage
           - entity: sensor.sonoff_1000cd8a56_power
+            name: Power
           - entity: sensor.fridge_daily
             name: Today
           - entity: sensor.fridge_monthly
@@ -358,25 +380,33 @@ cards:
             show_points: false
             show_legend: false
             y_axis: secondary
-      # second POWR2
+      # second Sonoff POWR2 (A/V System)
       - type: glance
         style: |
           ha-card {
             color: white;
             font-size: 11px;
-          }      
+          }
           .card-header {
             font-size: 18px;
             text-align: center;
             line-height: 70%;
-          }          
+          }
+        columns: 3
         entities:
-          - entity: sensor.sonoff_1000cd8a67_current
+          - entity: sensor.sonoff_1000cd8a60_current
             name: Current
-          - entity: sensor.sonoff_1000cd8a67_power
+          - entity: sensor.sonoff_1000cd8a60_power
             name: Power
-          - entity: sensor.sonoff_1000cd8a67_voltage
+          - entity: sensor.sonoff_1000cd8a60_voltage
             name: Voltage
+          - entity: sensor.av_daily
+            name: Today
+          - entity: sensor.av_monthly
+            name: This Month
+          - entity: sensor.av_cost_monthly
+            name: Monthly Cost
+            icon: mdi:currency-usd
         title: Audio/Video System
       - type: 'custom:mini-graph-card'
         style: |
@@ -396,9 +426,9 @@ cards:
         show:
           extrema: true
         entities:
-          - entity: sensor.sonoff_1000cd8a67_power
+          - entity: sensor.sonoff_1000cd8a60_power
             name: Power
-          - entity: sensor.sonoff_1000cd8a67_current
+          - entity: sensor.sonoff_1000cd8a60_current
             name: Current
           - color: gray
             entity: input_number.nighttime
@@ -406,4 +436,31 @@ cards:
             show_line: false
             show_points: false
             show_legend: false
-            y_axis: secondary            
+            y_axis: secondary
+      - type: glance
+        style: |
+          ha-card {
+            color: white;
+            font-size: 11px;
+          }      
+          .card-header {
+            font-size: 18px;
+            text-align: center;
+            line-height: 70%;
+          }          
+        columns: 3 
+        entities:
+          - entity: sensor.sonoff_1000cd8a67_current
+            name: Current
+          - entity: sensor.sonoff_1000cd8a67_voltage
+            name: Voltage
+          - entity: sensor.sonoff_1000cd8a67_power
+            name: Power
+          - entity: sensor.washer_daily
+            name: Today
+          - entity: sensor.washer_monthly
+            name: This Month
+          - entity: sensor.washer_cost_monthly
+            name: Monthly Cost
+            icon: mdi:currency-usd
+        title: Laundry            
