@@ -8,13 +8,33 @@ fridge_monthly:
   source: sensor.fridge_energy_spent
   cycle: monthly
 
+fridge_yearly:
+  source: sensor.fridge_energy_spent
+  cycle: yearly
+
 washer_daily:
   source: sensor.washer_energy_spent
   cycle: daily
 
 washer_monthly:
   source: sensor.washer_energy_spent
-  cycle: monthly  
+  cycle: monthly
+
+washer_yearly:
+  source: sensor.washer_energy_spent
+  cycle: yearly
+
+av_daily:
+  source: sensor.av_energy_spent
+  cycle: daily
+
+av_monthly:
+  source: sensor.av_energy_spent
+  cycle: monthly
+
+av_yearly:
+  source: sensor.av_energy_spent
+  cycle: yearly
 
 # WIP: Internet bandwitdh is not quite right, I suspect it has to do with the way the Arris Router samples
 
