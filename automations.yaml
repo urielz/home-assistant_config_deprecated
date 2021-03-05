@@ -1,0 +1,19 @@
+- alias: "Humidifer On"
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.bme280_humidity_2
+      below: 30 # relative humidity
+  action:
+    - service: switch.turn_on
+      target:
+        entity_id: switch.sonoff_1000c4ed2f
+
+- alias: "Humidifier Off"
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.bme280_humidity_2
+      above: 40 # relative humidity
+  action:
+    - service: switch.turn_off
+      target:
+        entity_id: switch.sonoff_1000c4ed2f
