@@ -190,6 +190,12 @@
       value_template: "{{ (states('sensor.av_yearly')|float * states('input_number.energy_cost')|float)|round(1) }}"
       unit_of_measurement: "$"     
 
+# Total Power consumption (as measured by POWR2)
+- platform: template
+  sensors:
+    total_power:
+      unit_of_measurement: "W"
+      value_template: "{{ (states('sensor.sonoff_1000cd8a56_power') | float) + (states('sensor.sonoff_1000cd8a67_power') | float) + (states('sensor.sonoff_1000cd8a60_power') | float) }}"
 
 
 ################################################################################
