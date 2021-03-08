@@ -31,6 +31,7 @@ cards:
                     line-height: 70%;
                   }                    
                 name: Temperature
+                icon: mdi:thermometer
                 font_size: 75
                 hours_to_show: 48 
                 points_per_hour: 4
@@ -39,6 +40,9 @@ cards:
                   labels: false 
                   labels_secondary: false 
                 entities:
+                  - entity: sensor.temperature_mean
+                    name: <T>                
+                    color: rgba(241,196,15)
                   - entity: sensor.bme280_temperature
                     name: Office
                     color: '#e74c3c' 
@@ -51,8 +55,6 @@ cards:
                   - entity: sensor.bme280_temperature_4
                     name: Living Room 
                     color: rgba(106,90,205)
-                  - entity: sensor.temperature_mean
-                    name: <T>
                   #- entity: sensor.temperature
                   #  name: Outside
                   - entity: binary_sensor.night
@@ -80,6 +82,7 @@ cards:
                     line-height: 70%;
                   }                    
                 name: Relative Humidity
+                icon: mdi:water-percent
                 font_size: 75
                 hours_to_show: 48 
                 points_per_hour: 4
@@ -88,6 +91,9 @@ cards:
                   labels: false 
                   labels_secondary: false 
                 entities:
+                  - entity: sensor.humidity_mean
+                    name: <RH>
+                    color: rgba(241,196,15)
                   - entity: sensor.bme280_humidity
                     name: Office
                     color: '#e74c3c' 
@@ -100,14 +106,9 @@ cards:
                   - entity: sensor.bme280_humidity_4
                     name: Living Room 
                     color: rgba(106,90,205)
-                  - entity: sensor.humidity_mean
-                    name: <RH>
-                  #- entity: sensor.temperature
-                  #  name: Outside
                   - entity: binary_sensor.night
                     color: rgba(255,255,255)
                     y_axis: secondary
-                    #aggregate_func: min
                     show_state: false
                     show_legend: false
                     show_line: false
@@ -119,7 +120,51 @@ cards:
                     label: "Night"                    
           - type: thermostat
             entity: climate.ac_uty_a0cc2beda5f7
-            name: Heat Pump                    
+            name: Heat Pump
+          - type: 'custom:mini-graph-card'
+            style: |
+              ha-card {
+                color: white;
+                font-size: 12px;
+              }
+              .card-header {
+                font-size: 20px;
+                text-align: center;
+                line-height: 70%;
+              }                    
+            name: Power Consumption
+            font_size: 75
+            hours_to_show: 48 
+            points_per_hour: 4
+            line_width: 2 
+            show:
+              labels: false 
+              labels_secondary: false 
+            entities:
+              - entity: sensor.total_power
+                name: Total Power
+                show_graph: false
+              - entity: sensor.sonoff_1000cd8a56_power
+                name: Fridge 
+                color: '#e74c3c'
+              - entity: sensor.sonoff_1000cd8a60_power
+                name: A/V System
+                color: '#aaffc3'
+              - entity: sensor.sonoff_1000cd8a67_power
+                name: Washer
+                color: '#ffd8b1'
+              - entity: binary_sensor.night
+                color: rgba(255,255,255)
+                y_axis: secondary
+                show_state: false
+                show_legend: false
+                show_line: false
+                show_points: false
+                state_map:
+                - value: "off"
+                  label: "Day"
+                - value: "on"
+                  label: "Night"                
                
       - break
       ######################################################################
@@ -138,8 +183,11 @@ cards:
           }
         entities:
           - entity: sensor.bme280_temperature
+            name: Temperature
           - entity: sensor.bme280_pressure
+            name: Pressure
           - entity: sensor.bme280_humidity
+            name: Humidity
         state_color: true
         title: Office
       - type: glance
@@ -155,8 +203,11 @@ cards:
           }          
         entities:
           - entity: sensor.bme280_temperature_2
+            name: Temperature
           - entity: sensor.bme280_pressure_2
+            name: Pressure
           - entity: sensor.bme280_humidity_2
+            name: Humidity
         title: Tobi's bedroom
       - type: glance
         title: Game Room             
@@ -237,11 +288,9 @@ cards:
               - height: 80px
             state:
               - value: 'on' 
-                #icon: mdi:lightbulb-on
                 icon: bha:outdoor-lamp-variant
               - value: 'off'
                 icon: bha:outdoor-lamp-variant
-                #icon: mdi:lightbulb
           - type: 'custom:button-card'
             entity: light.eb45e14e47084faddcsa7p
             icon: mdi:floor-lamp
