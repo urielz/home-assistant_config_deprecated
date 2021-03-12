@@ -136,7 +136,8 @@ cards:
             font_size: 75
             hours_to_show: 48 
             points_per_hour: 4
-            line_width: 2 
+            line_width: 2
+            icon: mdi:flash 
             show:
               labels: false 
               labels_secondary: false 
