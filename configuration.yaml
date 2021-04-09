@@ -8,26 +8,51 @@ default_config:
 lovelace:
   mode: yaml
   resources:
-  # Mini Graph Card (HACS): https://github.com/kalkih/mini-graph-card
-    - {type: module, url: '/local/community/mini-graph-card/mini-graph-card-bundle.js?v=0.10.0'}
+
   # Atomic Calendar Revive (HACS): https://github.com/marksie1988/atomic-calendar-revive
     - {type: module, url: '/local/community/atomic-calendar-revive/atomic-calendar-revive.js'}
-  # Check Button Card (HACS) - https://github.com/custom-cards/check-button-card
-    - {type: module, url: '/local/community/check-button-card/check-button-card.js'}
-  # Scheduler Component (HACS) - https://github.com/nielsfaber/scheduler-component
-    - {type: module, url: '/local/community/scheduler-card/scheduler-card.js'}
-  # layout-card (HACS) - https://github.com/thomasloven/lovelace-layout-card
-    - {type: module, url: '/local/community/lovelace-layout-card/layout-card.js'}
-  # template-entity-row (HACS) - https://github.com/thomasloven/lovelace-template-entity-row
-    - {type: module, url: '/local/community/lovelace-template-entity-row/template-entity-row.js'}
-  # card-mod (HACS) - https://github.com/thomasloven/lovelace-card-mod
-    - {type: module, url: '/local/community/lovelace-card-mod/card-mod.js'}
+
   # Mini Media Player (HACS): https://github.com/kalkih/mini-media-player
     - {type: module, url: '/local/community/mini-media-player/mini-media-player-bundle.js'}
-  # Button Card (HACS): https://github.com/custom-cards/button-card
-    - {type: module, url: '/local/community/button-card/button-card.js'}
+
+  # Mini Graph Card (HACS): https://github.com/kalkih/mini-graph-card
+    - {type: module, url: '/local/community/mini-graph-card/mini-graph-card-bundle.js?v=0.10.0'}
+
+  # Scheduler Component (HACS) - https://github.com/nielsfaber/scheduler-component
+    - {type: module, url: '/local/community/scheduler-card/scheduler-card.js'}
+
+  # roomba-vacuum-card (HACS) - https://github.com/jeremywillans/lovelace-roomba-vacuum-card
+    - {type: module, url: '/local/community/lovelace-roomba-vacuum-card/roomba-vacuum-card.js '}
+
+  # layout-card (HACS) - https://github.com/thomasloven/lovelace-layout-card
+    - {type: module, url: '/local/community/lovelace-layout-card/layout-card.js'}
+
+  # template-entity-row (HACS) - https://github.com/thomasloven/lovelace-template-entity-row
+    - {type: module, url: '/local/community/lovelace-template-entity-row/template-entity-row.js'}
+
   # BHA Icons (HACS): https://github.com/hulkhaugen/hass-bha-icons
-    - {type: js, url: 'local/community/hass-bha-icons/hass-bha-icons.js'}
+    - {type: module, url: 'local/community/hass-bha-icons/hass-bha-icons.js'}
+
+  # SVG File Loader: https://github.com/mozziemozz/home-assistant-svg-file-loader
+    - {type: module, url: '/local/community/file-loader/file-loader.js'}
+
+  # RGB Light Card: https://github.com/bokub/rgb-light-card
+    - {type: module, url: '/local/community/rgb-light-card/card.js'}
+
+  # Custom Components - Dependencies ---------------------------------------
+  
+  # button-card (HACS): https://github.com/custom-cards/button-card
+  # upstream: roomba
+    - {type: module, url: '/local/community/button-card/button-card.js'}
+
+  # card-mod (HACS) - https://github.com/thomasloven/lovelace-card-mod
+  # upstream: roomba
+    - {type: module, url: '/local/community/lovelace-card-mod/card-mod.js'}
+
+  # check-button-card (HACS) - https://github.com/custom-cards/check-button-card
+  # upstream: roomba
+    - {type: module, url: '/local/community/check-button-card/check-button-card.js'}    
+
 
 frontend:
   themes: !include_dir_merge_named themes
@@ -90,6 +115,10 @@ sonoff:
   force_update: [temperature, power]
   scan_interval: '00:01:00'  # (optional) default 5 minutes
   sensors: [temperature, humidity, power, current, voltage]
+  #devices:
+  #  1000c4ed2f:
+  #    device_class: Power Outlet
+  #    name: Humidifier
 
 roomba:
   - host: 192.168.0.24 
