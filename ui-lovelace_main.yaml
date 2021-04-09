@@ -14,9 +14,11 @@ cards:
       ######################################################################
       - type: vertical-stack
         cards:
+          # sonos media player ---------------------------------------------
           - type: custom:mini-media-player
             artwork: cover
             entity: media_player.speaker
+          # temperature plot -----------------------------------------------
           - type: vertical-stack
             cards:
               - type: 'custom:mini-graph-card'
@@ -32,8 +34,9 @@ cards:
                   }                    
                 name: Temperature
                 icon: mdi:thermometer
+                height: 140
                 font_size: 75
-                hours_to_show: 48 
+                hours_to_show: 72 
                 points_per_hour: 4
                 line_width: 2
                 show:
@@ -55,12 +58,9 @@ cards:
                   - entity: sensor.bme280_temperature_4
                     name: Living Room 
                     color: rgba(106,90,205)
-                  #- entity: sensor.temperature
-                  #  name: Outside
                   - entity: binary_sensor.night
                     color: rgba(255,255,255)
                     y_axis: secondary
-                    #aggregate_func: min
                     show_state: false
                     show_legend: false
                     show_line: false
@@ -70,6 +70,7 @@ cards:
                     label: "Day"
                   - value: "on"
                     label: "Night"
+              # relative humidity plot -------------------------------------
               - type: 'custom:mini-graph-card'
                 style: |
                   ha-card {
@@ -83,8 +84,9 @@ cards:
                   }                    
                 name: Relative Humidity
                 icon: mdi:water-percent
+                height: 140
                 font_size: 75
-                hours_to_show: 48 
+                hours_to_show: 72 
                 points_per_hour: 4
                 line_width: 2
                 show:
@@ -117,10 +119,12 @@ cards:
                   - value: "off"
                     label: "Day"
                   - value: "on"
-                    label: "Night"                    
+                    label: "Night"
+          # heat pump thermostat -------------------------------------------
           - type: thermostat
             entity: climate.ac_uty_a0cc2beda5f7
             name: Heat Pump
+          # power consumption plot -----------------------------------------
           - type: 'custom:mini-graph-card'
             style: |
               ha-card {
@@ -134,7 +138,7 @@ cards:
               }                    
             name: Power Consumption
             font_size: 75
-            hours_to_show: 48 
+            hours_to_show: 72 
             points_per_hour: 4
             line_width: 2
             icon: mdi:flash 
@@ -161,17 +165,22 @@ cards:
                 show_legend: false
                 show_line: false
                 show_points: false
-                state_map:
-                - value: "off"
-                  label: "Day"
-                - value: "on"
-                  label: "Night"                
+            state_map:
+              - value: "off"
+                label: "Day"
+              - value: "on"
+                label: "Night"                
                
       - break
+      
       ######################################################################
       # 2nd Column
-      ######################################################################             
+      ######################################################################
+      
+      # Office chart (T,P,RH,AH,TD,HI) -------------------------------------
       - type: glance
+        title: Office
+        columns: 3
         style: |
           ha-card {
             color: white;
@@ -185,13 +194,21 @@ cards:
         entities:
           - entity: sensor.bme280_temperature
             name: Temperature
-          - entity: sensor.bme280_pressure
-            name: Pressure
+          - entity: sensor.office_heatindex
+            name: Heat Index
+          - entity: sensor.office_dewpoint
+            name: Dew Point
           - entity: sensor.bme280_humidity
             name: Humidity
-        state_color: true
-        title: Office
+          - entity: sensor.office_absolutehumidity
+            name: Abs. Humidity
+          - entity: sensor.bme280_pressure
+            name: Pressure            
+
+      # Tobi's Room chart (T,P,RH,AH,TD,HI) --------------------------------        
       - type: glance
+        title: Tobi's Bedroom
+        columns: 3
         style: |
           ha-card {
             color: white;
@@ -205,13 +222,21 @@ cards:
         entities:
           - entity: sensor.bme280_temperature_2
             name: Temperature
-          - entity: sensor.bme280_pressure_2
-            name: Pressure
+          - entity: sensor.tobisroom_heatindex
+            name: Heat Index
+          - entity: sensor.tobisroom_dewpoint
+            name: Dew Point
           - entity: sensor.bme280_humidity_2
             name: Humidity
-        title: Tobi's bedroom
+          - entity: sensor.tobisroom_absolutehumidity
+            name: Abs. Humidity
+          - entity: sensor.bme280_pressure_2
+            name: Pressure
+
+      # Game Room chart (T,P,RH,AH,TD,HI) ----------------------------------
       - type: glance
-        title: Game Room             
+        title: Game Room
+        columns: 3
         style: |
           ha-card {
             color: white;
@@ -225,12 +250,21 @@ cards:
         entities:
           - entity: sensor.bme280_temperature_3
             name: Temperature 
-          - entity: sensor.bme280_pressure_3
-            name: Pressure
+          - entity: sensor.gameroom_heatindex
+            name: Heat Index
+          - entity: sensor.gameroom_dewpoint
+            name: Dew Point
           - entity: sensor.bme280_humidity_3
             name: Humidity
+          - entity: sensor.gameroom_absolutehumidity
+            name: Abs. Humidity
+          - entity: sensor.bme280_pressure_3
+            name: Pressure
+
+      # Living Room chart (T,P,RH,AH,TD,HI) --------------------------------
       - type: glance
         title: Living Room
+        columns: 3
         style: |
           ha-card {
             color: white;
@@ -243,15 +277,24 @@ cards:
           }          
         entities:
           - entity: sensor.bme280_temperature_4
-            name: Temperature 
+            name: Temperature
+          - entity: sensor.livingroom_heatindex
+            name: Heat Index
+          - entity: sensor.livingroom_dewpoint
+            name: Dew Point
+          - entity: sensor.bme280_humidity_4
+            name: Humidity
+          - entity: sensor.livingroom_absolutehumidity
+            name: Abs. Humidity
           - entity: sensor.bme280_pressure_4
             name: Pressure
-          - entity: sensor.bme280_humidity_4
-            name: Humidity            
+
       - break
+
       ######################################################################
       # 3rd Column
-      ######################################################################      
+      ######################################################################
+       
       - type: glance
         style: |
           ha-card {
