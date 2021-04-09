@@ -9,20 +9,22 @@ lovelace:
   mode: yaml
   resources:
 
-  # Atomic Calendar Revive (HACS): https://github.com/marksie1988/atomic-calendar-revive
+  # atomic-calendar-revive (HACS): https://github.com/marksie1988/atomic-calendar-revive
     - {type: module, url: '/local/community/atomic-calendar-revive/atomic-calendar-revive.js'}
 
-  # Mini Media Player (HACS): https://github.com/kalkih/mini-media-player
-    - {type: module, url: '/local/community/mini-media-player/mini-media-player-bundle.js'}
-
-  # Mini Graph Card (HACS): https://github.com/kalkih/mini-graph-card
+  # mini-graph-card (HACS): https://github.com/kalkih/mini-graph-card
     - {type: module, url: '/local/community/mini-graph-card/mini-graph-card-bundle.js?v=0.10.0'}
 
-  # Scheduler Component (HACS) - https://github.com/nielsfaber/scheduler-component
-    - {type: module, url: '/local/community/scheduler-card/scheduler-card.js'}
+  # mini-media-player (HACS): https://github.com/kalkih/mini-media-player
+    - {type: module, url: '/local/community/mini-media-player/mini-media-player-bundle.js'}
 
   # roomba-vacuum-card (HACS) - https://github.com/jeremywillans/lovelace-roomba-vacuum-card
     - {type: module, url: '/local/community/lovelace-roomba-vacuum-card/roomba-vacuum-card.js '}
+
+
+
+  # Scheduler Component (HACS) - https://github.com/nielsfaber/scheduler-component
+    - {type: module, url: '/local/community/scheduler-card/scheduler-card.js'}
 
   # layout-card (HACS) - https://github.com/thomasloven/lovelace-layout-card
     - {type: module, url: '/local/community/lovelace-layout-card/layout-card.js'}
@@ -51,7 +53,15 @@ lovelace:
 
   # check-button-card (HACS) - https://github.com/custom-cards/check-button-card
   # upstream: roomba
-    - {type: module, url: '/local/community/check-button-card/check-button-card.js'}    
+    - {type: module, url: '/local/community/check-button-card/check-button-card.js'}
+
+  # fold-entity-row (HACS) - https://github.com/thomasloven/lovelace-fold-entity-row
+  # upstream: roomba
+    - {type: module, url: '/local/community/lovelace-fold-entity-row/fold-entity-row.js'}
+
+  # text-divider-row (HACS) - https://github.com/iantrich/text-divider-row
+  # upstream: roomba
+    - {type: module, url: '/local/community/text-divider-row/text-divider-row.js'}
 
 
 frontend:
