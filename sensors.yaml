@@ -62,8 +62,33 @@
     - sensor.bme280_humidity
     - sensor.bme280_humidity_2
     - sensor.bme280_humidity_3
-    - sensor.bme280_humidity_4    
+    - sensor.bme280_humidity_4
 
+# thermal comfort - Not in HACS (location: ./custom_components/thermal_comfort)
+# https://github.com/dolezsa/thermal_comfort
+# references for calculations:
+#   Heat index:         https://www.wpc.ncep.noaa.gov/html/heatindex_equation.shtml
+#   Absolute Humidity:  https://carnotcycle.wordpress.com/2012/08/04/how-to-convert-relative-humidity-to-absolute-humidity/
+#   Dew Point:          https://wahiduddin.net/calc/density_algorithms.htm
+#   Thermal Perception: https://en.wikipedia.org/wiki/Dew_point
+- platform: thermal_comfort
+  sensors:
+    office:
+      friendly_name: Office
+      temperature_sensor: sensor.bme280_temperature
+      humidity_sensor: sensor.bme280_humidity
+    tobisroom:
+      friendly_name: Tobi's Room
+      temperature_sensor: sensor.bme280_temperature_2
+      humidity_sensor: sensor.bme280_humidity_2
+    gameroom:
+      friendly_name: Game Room
+      temperature_sensor: sensor.bme280_temperature_3
+      humidity_sensor: sensor.bme280_humidity_3
+    livingroom:
+      friendly_name: Living Room
+      temperature_sensor: sensor.bme280_temperature_4
+      humidity_sensor: sensor.bme280_humidity_4
 
 ################################################################################
 # Templates (entity derived sensors)                                           #
@@ -195,7 +220,7 @@
   sensors:
     total_power:
       unit_of_measurement: "W"
-      value_template: "{{ (states('sensor.sonoff_1000cd8a56_power') | float) + (states('sensor.sonoff_1000cd8a67_power') | float) + (states('sensor.sonoff_1000cd8a60_power') | float) }}"
+      value_template: "{{ (states('sensor.sonoff_1000cd8a56_powe') | float) + (states('sensor.sonoff_1000cd8a67_power') | float) + (states('sensor.sonoff_1000cd8a60_power') | float) }}"
 
 
 ################################################################################
