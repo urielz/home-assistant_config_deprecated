@@ -46,18 +46,21 @@
   unit_time: h
   round: 2  
 
+# MIN/MAX sensor to compute min/max/mean/median
+# https://www.home-assistant.io/integrations/min_max/
 - platform: min_max
   type: mean
+  round_digits: 1
   name: temperature_mean
   entity_ids:
     - sensor.bme280_temperature
     - sensor.bme280_temperature_2
     - sensor.bme280_temperature_3
     - sensor.bme280_temperature_4
-
 - platform: min_max
   type: mean
   name: humidity_mean
+  round_digits: 0
   entity_ids:
     - sensor.bme280_humidity
     - sensor.bme280_humidity_2
