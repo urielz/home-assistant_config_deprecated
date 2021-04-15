@@ -1,29 +1,62 @@
 title: Weather
-path: weather
 icon: 'mdi:weather-cloudy'
+panel: true
 badges: []
 cards:
-  - type: weather-forecast
-    entity: weather.halifax_shearwater
-    secondary_info_attribute: wind_speed
-    name: Halifax
-  - type: glance
-    entities:
-      - entity: sensor.dew_point
-      - entity: sensor.wind_chill
-      - entity: sensor.wind_gust
-      - entity: sensor.pressure
-      - entity: sensor.tendency
-      - entity: sensor.humidity
-    columns: 3
-  - type: entities
-    entities:
-      - entity: sensor.tide_current_height
-      - entity: sensor.tide_next_high
-      - entity: sensor.tide_next_high_height
-      - entity: sensor.tide_next_low
-      - entity: sensor.tide_next_low_height
-      - entity: sensor.tide_credit
-    title: Halifax Tide Station
-  - type: picture-entity
-    entity: camera.environment_canada_radar
+  - type: 'custom:layout-card'
+    layout: vertical
+    max_columns: 2
+    column_width: 200
+    max_width: [32%, 68%]     
+    cards:
+      ######################################################################
+      # 1st Column
+      ######################################################################
+      - type: vertical-stack
+        cards:
+          - type: weather-forecast
+            style: |
+              ha-card {
+                color: white;
+                font-size: 12px;
+              }
+              .card-header {
+                font-size: 20px;
+                text-align: center;
+                line-height: 70%;
+              }                    
+            name: Halifax
+            entity: weather.halifax_shearwater
+            secondary_info_attribute: wind_speed
+          - type: glance
+            style: |          
+              ha-card {
+                color: white;
+                font-size: 12px;
+              }
+              .card-header {
+                font-size: 20px;
+                text-align: center;
+                line-height: 70%;
+              }                              
+            columns: 3
+            entities:
+              - entity: sensor.pressure
+              - entity: sensor.tendency
+                name: 'Pressure Tendency'
+              - entity: sensor.humidity
+              - entity: sensor.wind_chill
+              - entity: sensor.wind_gust
+              - entity: sensor.dew_point              
+
+      - break
+
+      ######################################################################
+      # 2nd Column
+      ######################################################################  
+      - type: vertical-stack
+        cards:
+          - type: picture-entity
+            entity: camera.environment_canada_radar
+
+      
