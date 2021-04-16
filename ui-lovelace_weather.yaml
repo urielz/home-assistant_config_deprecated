@@ -25,7 +25,7 @@ cards:
                 text-align: center;
                 line-height: 70%;
               }                    
-            name: Halifax
+            name: Halifax Shearwater WS
             entity: weather.halifax_shearwater
             secondary_info_attribute: wind_speed
           - type: glance
@@ -56,6 +56,13 @@ cards:
       ######################################################################  
       - type: vertical-stack
         cards:
+          # https://www.home-assistant.io/lovelace/iframe/
+          # windy widget here: https://www.windy.com/-Embed-widget-on-page/widgets
+          - type: iframe
+            url: https://embed.windy.com/embed2.html?lat=38.754&lon=-63.721&detailLat=44.622&detailLon=-63.501&width=500&height=650&zoom=4&level=surface&overlay=rain&product=ecmwf&menu=&message=&marker=&calendar=now&pressure=true&type=map&location=coordinates&detail=true&metricWind=m%2Fs&metricTemp=%C2%B0C&radarRange=-1"
+            aspect_ratio: 80%
+
+          # https://www.home-assistant.io/integrations/environment_canada/
           - type: picture-entity
             entity: camera.environment_canada_radar
 
