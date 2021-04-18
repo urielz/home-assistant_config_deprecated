@@ -46,7 +46,12 @@ cards:
 
           # Satellite Tracker: https://github.com/djtimca/hasatellitetracker
           # good info here: https://community.home-assistant.io/t/satellite-tracker-integration-track-a-satellite-or-see-what-satellites-are-over-head/249016
-          # ISS
+          #
+          # ISS Tracker
+          - type: entities
+            entities:
+              - entity: sensor.bellevue_overhead_satellites
+                name: 'Satellites Overhead:'
           - type: conditional
             conditions:
               - entity: sensor.international_space_station_iss_pass_0
@@ -56,7 +61,7 @@ cards:
               cards:
                 - type: 'custom:button-card'
                   entity: sensor.international_space_station_iss_pass_0
-                  name: ISS Pass
+                  name: ISS
                   show_label: false 
                   styles:
                     card:
@@ -150,7 +155,7 @@ cards:
               cards:
                 - type: 'custom:button-card'
                   entity: sensor.jason_3_pass_0
-                  name: Jason 3 Pass
+                  name: Jason 3
                   show_label: false 
                   styles:
                     card:
@@ -234,16 +239,99 @@ cards:
                             return entity.attributes.start_compass + " > " + entity.attributes.end_compass
                           ]]]
           
-          # https://www.home-assistant.io/lovelace/map/
-          - type: map
-            aspect_ratio: 16:9
-            title: Satellite Tracker
-            #dark_mode: true
-            hours_to_show: 168 
-            default_zoom: 1 
-            entities:
-              - device_tracker.jason_3
-              - zone.home
+          # Aqua (MODIS) Tracker
+          - type: conditional
+            conditions:
+              - entity: sensor.aqua_modis_pass_0
+                state_not: unknown
+            card:
+              type: horizontal-stack
+              cards:
+                - type: 'custom:button-card'
+                  entity: sensor.aqua_modis_pass_0
+                  name: Aqua MODIS
+                  show_label: false 
+                  styles:
+                    card:
+                      - width: 250px
+                      - height: 100%
+                    grid:
+                      - grid-template-areas: '"n date" "i time" "i duration"'
+                      - grid-template-columns: 1fr 1fr
+                      - grid-template-rows: min-content min-content min-content
+                    name:
+                      - align-self: start
+                      - justify-self: center
+                      - font-weight: bold
+                    icon:
+                      - width: 40px
+                    custom_fields:
+                      date:
+                        - align-self: start
+                        - justify-self: start
+                        - font-size: 14px
+                      time:
+                        - align-self: start
+                        - justify-self: start
+                        - font-size: 14px
+                      duration:
+                        - align-self: start
+                        - justify-self: start
+                        - font-size: 14px
+                      startdir:
+                        - align-self: start
+                        - justify-self: start
+                        - font-size: 14px
+                      enddir:
+                        - align-self: start
+                        - justify-self: start
+                        - font-size: 14px
+                  custom_fields:
+                    date: |
+                      [[[
+                        var passdate = new Date(entity.attributes.pass_start_unix * 1000);
+                        var options = { year: 'numeric', month: 'short', day: 'numeric' };
+                        return new Intl.DateTimeFormat('en-US', options).format(passdate);
+                      ]]]
+                    time: |
+                      [[[
+                        var passdate = new Date(entity.attributes.pass_start_unix * 1000);
+                        var options = { hour: '2-digit', minute: '2-digit' };
+                        return new Intl.DateTimeFormat('en-US', options).format(passdate);
+                      ]]]                  
+                    duration: |
+                      [[[
+                        return entity.state + " seconds"
+                      ]]]
+                - type: vertical-stack
+                  cards:
+                    - type: 'custom:gauge-card'
+                      entity: sensor.aqua_modis_pass_0
+                      attribute: max_elevation
+                      measurement: °
+                      scale: 15px
+                      severity:
+                        red: 0
+                        yellow: 45
+                        green: 65
+                    - type: 'custom:button-card'
+                      entity: sensor.aqua_modis_pass_0
+                      show_icon: false
+                      show_name: false
+                      styles:
+                        grid:
+                          - grid-template-areas: '"path"'
+                          - grid-template-columns: 1fr
+                          - grid-template-rows: min-content
+                        custom_fields:
+                          path:
+                            - align-self: start
+                            - font-size: 14px
+                      custom_fields:
+                        path: |
+                          [[[
+                            return entity.attributes.start_compass + " > " + entity.attributes.end_compass
+                          ]]]          
 
       - break
 
@@ -261,3 +349,16 @@ cards:
           # https://www.home-assistant.io/integrations/environment_canada/
           - type: picture-entity
             entity: camera.environment_canada_radar
+
+         # https://www.home-assistant.io/lovelace/map/
+          - type: map
+            aspect_ratio: 16:9
+            title: Satellite Tracker
+            dark_mode: true
+            hours_to_show: 1
+            default_zoom: 3
+            entities:
+              - device_tracker.jason_3
+              - device_tracker.international_space_station_iss
+              - device_tracker.aqua_modis
+              - zone.home            
