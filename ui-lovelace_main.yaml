@@ -34,7 +34,7 @@ cards:
                   }                    
                 name: Temperature
                 icon: mdi:thermometer
-                height: 140
+                height: 150
                 font_size: 75
                 hours_to_show: 72 
                 points_per_hour: 4
@@ -58,6 +58,8 @@ cards:
                   - entity: sensor.bme280_temperature_4
                     name: Living Room 
                     color: rgba(106,90,205)
+                  - entity: sensor.bme280_temperature_6
+                    name: Laundry Room
                   - entity: binary_sensor.night
                     color: rgba(255,255,255)
                     y_axis: secondary
@@ -84,7 +86,7 @@ cards:
                   }                    
                 name: Relative Humidity
                 icon: mdi:water-percent
-                height: 140
+                height: 150
                 font_size: 75
                 hours_to_show: 72 
                 points_per_hour: 4
@@ -108,6 +110,8 @@ cards:
                   - entity: sensor.bme280_humidity_4
                     name: Living Room 
                     color: rgba(106,90,205)
+                  - entity: sensor.bme280_humidity_6
+                    name: Laundry Room
                   - entity: binary_sensor.night
                     color: rgba(255,255,255)
                     y_axis: secondary
@@ -289,13 +293,10 @@ cards:
           - entity: sensor.bme280_pressure_4
             name: Pressure
 
-      - break
-
-      ######################################################################
-      # 3rd Column
-      ######################################################################
-       
+      # Laundry Room chart (T,P,RH,AH,TD,HI) --------------------------------
       - type: glance
+        title: Laundry Room
+        columns: 3
         style: |
           ha-card {
             color: white;
@@ -304,18 +305,52 @@ cards:
           .card-header {
             font-size: 18px;
             text-align: center;
-            line-height: 70%;
-          }                    
-        title: iRobot Roomba
+            line-height: 100%;
+          }          
         entities:
-          - entity: vacuum.roomba
-            name: Status
-          - entity: sensor.roomba_battery_level
-            name: Battery
-          #- entity: binary_sensor.roomba_bin_full
-          - entity: sensor.roomba_bin
-        state_color: true
-        columns: 3
+          - entity: sensor.bme280_temperature_6
+            name: Temperature
+          - entity: sensor.laundryroom_heatindex
+            name: Heat Index
+          - entity: sensor.laundryroom_dewpoint
+            name: Dew Point
+          - entity: sensor.bme280_humidity_6
+            name: Humidity
+          - entity: sensor.laundryroom_absolutehumidity
+            name: Abs. Humidity
+          - entity: sensor.bme280_pressure_6
+            name: Pressure
+
+      - break
+
+      ######################################################################
+      # 3rd Column
+      ######################################################################
+
+      # - type: glance
+      #   style: |
+      #     ha-card {
+      #       color: white;
+      #       font-size: 11px;
+      #     }
+      #     .card-header {
+      #       font-size: 18px;
+      #       text-align: center;
+      #       line-height: 70%;
+      #     }                    
+      #   title: iRobot Roomba
+      #   entities:
+      #     - entity: vacuum.roomba
+      #       name: Status
+      #     - entity: sensor.roomba_battery_level
+      #       name: Battery
+      #     #- entity: binary_sensor.roomba_bin_full
+      #     - entity: sensor.roomba_bin
+      #   state_color: true
+      #   columns: 3
+      # - type: custom:roomba-vacuum-card
+      #   entity: sensor.vacuum
+
       - type: grid
         columns: 3 
         cards:

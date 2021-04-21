@@ -57,6 +57,7 @@
     - sensor.bme280_temperature_2
     - sensor.bme280_temperature_3
     - sensor.bme280_temperature_4
+    - sensor.bme280_temperature_6 # Laundry Room
 - platform: min_max
   type: mean
   name: humidity_mean
@@ -66,6 +67,7 @@
     - sensor.bme280_humidity_2
     - sensor.bme280_humidity_3
     - sensor.bme280_humidity_4
+    - sensor.bme280_humidity_6 # Laundry Room
 
 # thermal comfort - Not in HACS (location: ./custom_components/thermal_comfort)
 # https://github.com/dolezsa/thermal_comfort
@@ -92,6 +94,10 @@
       friendly_name: Living Room
       temperature_sensor: sensor.bme280_temperature_4
       humidity_sensor: sensor.bme280_humidity_4
+    laundryroom:
+      friendly_name: Laundry Room
+      temperature_sensor: sensor.bme280_temperature_6
+      humidity_sensor: sensor.bme280_humidity_6
 
 ################################################################################
 # Templates (entity derived sensors)                                           #
