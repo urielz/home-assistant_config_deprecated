@@ -229,7 +229,26 @@
   sensors:
     total_power:
       unit_of_measurement: "W"
-      value_template: "{{ (states('sensor.sonoff_1000cd8a56_powe') | float) + (states('sensor.sonoff_1000cd8a67_power') | float) + (states('sensor.sonoff_1000cd8a60_power') | float) }}"
+      value_template: "{{ (states('sensor.sonoff_1000cd8a56_power') | float) + (states('sensor.sonoff_1000cd8a67_power') | float) + (states('sensor.sonoff_1000cd8a60_power') | float) }}"
+
+# Temperature Anomalies
+- platform: template
+  sensors:
+    t_anom_office:
+      unit_of_measurement: "°C"
+      value_template: “{{ (states('sensor.bme280_temperature') | float - states('sensor.temperature_mean') | float)|round(1) }}”
+    t_anom_tobis_room:
+      unit_of_measurement: "°C"
+      value_template: “{{ (states('sensor.bme280_temperature_2') | float - states('sensor.temperature_mean') | float)|round(1) }}”
+    t_anom_living_room:
+      unit_of_measurement: "°C"
+      value_template: “{{ (states('sensor.bme280_temperature_4') | float - states('sensor.temperature_mean') | float)|round(1) }}”
+    t_anom_game_room:
+      unit_of_measurement: "°C"
+      value_template: “{{ (states('sensor.bme280_temperature_3') | float - states('sensor.temperature_mean') | float)|round(1) }}”
+    t_anom_laundry_room:
+      unit_of_measurement: "°C"
+      value_template: “{{ (states('sensor.bme280_temperature_6') | float - states('sensor.temperature_mean') | float)|round(1) }}”            
 
 
 ################################################################################
