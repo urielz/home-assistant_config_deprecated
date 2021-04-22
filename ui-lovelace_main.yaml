@@ -46,10 +46,10 @@ cards:
                   - entity: sensor.temperature_mean
                     name: <T>                
                     color: rgba(241,196,15)
-                  - entity: sensor.bme280_temperature
+                  - entity: sensor.bme280_temperature   # Office
                     name: Office
                     color: '#e74c3c' 
-                  - entity: sensor.bme280_temperature_2
+                  - entity: sensor.bme280_temperature_2 # Tobi's bedroom
                     name: Tobi's Room
                     color: '#aaffc3'
                   - entity: sensor.bme280_temperature_3
@@ -58,8 +58,9 @@ cards:
                   - entity: sensor.bme280_temperature_4
                     name: Living Room 
                     color: rgba(106,90,205)
-                  - entity: sensor.bme280_temperature_6
+                  - entity: sensor.bme280_temperature_6 # Laundry Room
                     name: Laundry Room
+                    color: rgba(255,255,255)
                   - entity: binary_sensor.night
                     color: rgba(255,255,255)
                     y_axis: secondary
@@ -72,6 +73,64 @@ cards:
                     label: "Day"
                   - value: "on"
                     label: "Night"
+
+          # temperature anomaly plot ------------------------------------------
+          - type: vertical-stack
+            cards:
+              - type: 'custom:mini-graph-card'
+                style: |
+                  ha-card {
+                    color: white;
+                    font-size: 12px;
+                  }
+                  .card-header {
+                    font-size: 20px;
+                    text-align: center;
+                    line-height: 70%;
+                  }                    
+                name: Temperature Anomaly
+                icon: mdi:thermometer
+                height: 150
+                font_size: 75
+                hours_to_show: 72 
+                points_per_hour: 4
+                line_width: 2
+                show:
+                  labels: false 
+                  labels_secondary: false 
+                  #legend: false
+                  state: false
+                entities:
+                  - entity: sensor.t_anom_office   # Office
+                    name: Office
+                    color: '#e74c3c' 
+                  - entity: sensor.t_anom_tobis_room # Tobi's bedroom
+                    name: Tobi's Room
+                    color: '#aaffc3'
+                  - entity: sensor.t_anom_game_room 
+                    name: Game Room 
+                    color: '#ffd8b1'
+                  - entity: sensor.t_anom_living_room
+                    name: Living Room 
+                    color: rgba(106,90,205)
+                  - entity: sensor.t_anom_laundry_room # Laundry Room
+                    name: Laundry Room
+                    color: rgba(255,255,255)
+                  - entity: binary_sensor.night
+                    color: rgba(255,255,255)
+                    y_axis: secondary
+                    show_state: false
+                    show_legend: false
+                    show_line: false
+                    show_points: false
+                state_map:
+                  - value: "off"
+                    label: "Day"
+                  - value: "on"
+                    label: "Night"
+    
+  
+  
               # relative humidity plot -------------------------------------
               - type: 'custom:mini-graph-card'
                 style: |
@@ -112,6 +171,7 @@ cards:
                     color: rgba(106,90,205)
                   - entity: sensor.bme280_humidity_6
                     name: Laundry Room
+                    color: rgba(255,255,255)
                   - entity: binary_sensor.night
                     color: rgba(255,255,255)
                     y_axis: secondary
