@@ -9,9 +9,9 @@ badges:
 cards:
   - type: 'custom:layout-card'
     layout: vertical
-    max_columns: 4 
+    max_columns: 3 
     column_width: 200
-    max_width: [33%, 25%, 20%, 22%]     
+    max_width: [40%, 40%, 20%]     
     cards:
       ######################################################################
       # 1st column
@@ -29,13 +29,14 @@ cards:
           }                
         entities:
           - entity: sensor.glances_cpu_thermal_1_temperature
+            name: "CPU Temperature"
           - entity: sensor.glances_cpu_load
           - entity: sensor.glances_cpu_used
           - entity: sensor.glances_ram_used
           - entity: sensor.glances_ram_used_percent
           - entity: sensor.glances_free
         columns: 3
-        title: raspberry pi 4
+        title: Raspberry Pi 4
 
       - type: glance
         style: |
@@ -50,15 +51,20 @@ cards:
           }                
         entities:
           - entity: sensor.glances_containers_active
+            name: Active Containers
           - entity: sensor.glances_containers_cpu_used
+            name: CPU Load
           - entity: sensor.glances_ram_used_percent
-        title: pi4 docker
+            name: RAM Used
+        title: RPi4 Docker
 
 
       - break
       ######################################################################
       # 2nd column
-      ######################################################################    
+      ######################################################################
+
+      # Kuroshio Media Server status ---------------------------------------
       - type: glance
         style: |
           ha-card {
@@ -72,13 +78,16 @@ cards:
           }                
         entities:
           - entity: sensor.kuroshio_cpu_load_total
+          - entity: sensor.kuroshio_cpu_load_user
+            name: CPU Load User
           - entity: sensor.kuroshio_temperature
+            name: CPU Temp
           - entity: sensor.kuroshio_memory_usage_real
           - entity: binary_sensor.kuroshio_update_available
-        title: kuroshio server status
+        title: Kuroshio Media Server Status
         state_color: true
-        columns: 2
-
+        columns: 5
+      # Kuroshio RAID status -----------------------------------------------
       - type: glance
         style: |
           ha-card {
@@ -93,12 +102,13 @@ cards:
         entities:
           - entity: sensor.kuroshio_volume_1_used_space
           - entity: sensor.kuroshio_volume_1_volume_used
+            name: Space %
           - entity: sensor.kuroshio_drive_1_status
           - entity: sensor.kuroshio_drive_1_temperature
           - entity: sensor.kuroshio_drive_2_status
           - entity: sensor.kuroshio_drive_2_temperature
-        title: kuroshio raid1 storage
-        columns: 2
+        title: Kuroshio RAID1 Status
+        columns: 6
 
       - break
       ######################################################################
@@ -109,7 +119,7 @@ cards:
         style: |
           ha-card {
             color: white;
-            font-size: 11px;
+            font-size: 12px;
           }
           .card-header {
             font-size: 18px;
@@ -118,15 +128,19 @@ cards:
           }                
         entities:
           - entity: sensor.hl_l2340d_uptime
+            name: Uptime
           - entity: sensor.hl_l2340d_page_counter
+            name: Pages
           - entity: sensor.hl_l2340d_black_toner_remaining
+            name: Toner
           - entity: sensor.hl_l2340d_drum_remaining_life
+            name: Drum
         state_color: true
-        title: office printer
+        title: Printer
         show_state: true
         show_icon: true
         show_name: true
-        columns: 2
+        columns: 4
 
       - type: entities
         style: |
@@ -145,12 +159,13 @@ cards:
           - entity: sensor.pixel_2_battery_health
           - entity: device_tracker.pixel_2
         state_color: true
+        title: Pixel 2
         footer:
           type: graph
           entity: sensor.pixel_2_battery_level
           hours_to_show: 24
           detail: 2
-        title: pixel 2
+        
 
   # - type: glance
   #   entities:
