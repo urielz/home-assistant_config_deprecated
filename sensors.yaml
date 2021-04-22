@@ -236,19 +236,19 @@
   sensors:
     t_anom_office:
       unit_of_measurement: "°C"
-      value_template: “{{ (states('sensor.bme280_temperature') | float - states('sensor.temperature_mean') | float)|round(1) }}”
+      value_template: "{{ ((states('sensor.bme280_temperature') | float) - (states('sensor.temperature_mean') | float))|round(1) }}"
     t_anom_tobis_room:
       unit_of_measurement: "°C"
-      value_template: “{{ (states('sensor.bme280_temperature_2') | float - states('sensor.temperature_mean') | float)|round(1) }}”
+      value_template: "{{ (states('sensor.bme280_temperature_2') | float - states('sensor.temperature_mean') | float)|round(1) }}"
     t_anom_living_room:
       unit_of_measurement: "°C"
-      value_template: “{{ (states('sensor.bme280_temperature_4') | float - states('sensor.temperature_mean') | float)|round(1) }}”
+      value_template: "{{ (states('sensor.bme280_temperature_4') | float - states('sensor.temperature_mean') | float)|round(1) }}"
     t_anom_game_room:
       unit_of_measurement: "°C"
-      value_template: “{{ (states('sensor.bme280_temperature_3') | float - states('sensor.temperature_mean') | float)|round(1) }}”
+      value_template: "{{ (states('sensor.bme280_temperature_3') | float - states('sensor.temperature_mean') | float)|round(1) }}"
     t_anom_laundry_room:
       unit_of_measurement: "°C"
-      value_template: “{{ (states('sensor.bme280_temperature_6') | float - states('sensor.temperature_mean') | float)|round(1) }}”            
+      value_template: "{{ (states('sensor.bme280_temperature_6') | float - states('sensor.temperature_mean') | float)|round(1) }}"           
 
 
 ################################################################################
