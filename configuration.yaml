@@ -15,10 +15,10 @@ lovelace:
   # atomic-calendar-revive (HACS): https://github.com/marksie1988/atomic-calendar-revive
     - {type: module, url: '/local/community/atomic-calendar-revive/atomic-calendar-revive.js'}
 
-  # mini-graph-card (HACS): https://github.com/kalkih/mini-graph-card
+  ## mini-graph-card (HACS): https://github.com/kalkih/mini-graph-card
     - {type: module, url: '/local/community/mini-graph-card/mini-graph-card-bundle.js?v=0.10.0'}
 
-  # mini-media-player (HACS): https://github.com/kalkih/mini-media-player
+  ## mini-media-player (HACS): https://github.com/kalkih/mini-media-player
     - {type: module, url: '/local/community/mini-media-player/mini-media-player-bundle.js'}
 
   # roomba-vacuum-card (HACS) - https://github.com/jeremywillans/lovelace-roomba-vacuum-card
@@ -29,13 +29,13 @@ lovelace:
   # Scheduler Component (HACS) - https://github.com/nielsfaber/scheduler-component
     - {type: module, url: '/local/community/scheduler-card/scheduler-card.js'}
 
-  # layout-card (HACS) - https://github.com/thomasloven/lovelace-layout-card
+  ## layout-card (HACS) - https://github.com/thomasloven/lovelace-layout-card
     - {type: module, url: '/local/community/lovelace-layout-card/layout-card.js'}
 
   # template-entity-row (HACS) - https://github.com/thomasloven/lovelace-template-entity-row
     - {type: module, url: '/local/community/lovelace-template-entity-row/template-entity-row.js'}
 
-  # BHA Icons (HACS): https://github.com/hulkhaugen/hass-bha-icons
+ ## BHA Icons (HACS): https://github.com/hulkhaugen/hass-bha-icons
     - {type: module, url: 'local/community/hass-bha-icons/hass-bha-icons.js'}
 
   # SVG File Loader: https://github.com/mozziemozz/home-assistant-svg-file-loader
@@ -46,11 +46,11 @@ lovelace:
 
   # Custom Components - Dependencies ---------------------------------------
   
-  # button-card (HACS): https://github.com/custom-cards/button-card
+  ## button-card (HACS): https://github.com/custom-cards/button-card
   # upstream: roomba, lovelace UI
     - {type: module, url: '/local/community/button-card/button-card.js'}
 
-  # card-mod (HACS) - https://github.com/thomasloven/lovelace-card-mod
+  ## card-mod (HACS) - https://github.com/thomasloven/lovelace-card-mod
   # upstream: roomba
     - {type: module, url: '/local/community/lovelace-card-mod/card-mod.js'}
 
@@ -84,7 +84,7 @@ sensor: !include sensors.yaml
 switch: !include switches.yaml
 utility_meter: !include utility_meters.yaml
 
-# influxDB database: https://www.home-assistant.io/integrations/influxdb/
+## influxDB database: https://www.home-assistant.io/integrations/influxdb/
 influxdb:
   host: a0d7b954-influxdb
   port: 8086
@@ -108,11 +108,12 @@ google:
   client_id: !secret google_client_id
   client_secret: !secret google_client_secret
 
-# Climate Integration: https://www.home-assistant.io/integrations/climate/
+## Climate Integration: https://www.home-assistant.io/integrations/climate/
 climate:
   - platform: fujitsu_general_heatpump
     username: !secret climate_username
     password: !secret climate_password 
+    region: 'us'
     tokenpath: 'token.txt'
 
 # Environment Canada: https://www.home-assistant.io/integrations/environment_canada/
@@ -126,6 +127,7 @@ camera:
     still_image_url: https://127.0.0.1:8123/local/halifax_tides.png
     verify_ssl: false
 
+## sonoff
 sonoff:
   username: !secret sonoff_powr2_username
   password: !secret sonoff_powr2_password
